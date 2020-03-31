@@ -1,6 +1,6 @@
 package ludia;
 
-public class Zamestnanec {
+public abstract class Zamestnanec {
     private String meno;
     private String typ;
 
@@ -8,5 +8,5 @@ public class Zamestnanec {
         this.meno = meno;
     }
 
-    public abstract void skontrolujRec();
+    public abstract void skontrRecepciu();
 }
