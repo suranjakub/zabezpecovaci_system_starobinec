@@ -5,4 +5,8 @@ public class Manazer extends Zamestnanec{
         super("Peter","manazer");
     }
 
+    @Override
+    public void skontrRecepciu() {
+
+    }
 }

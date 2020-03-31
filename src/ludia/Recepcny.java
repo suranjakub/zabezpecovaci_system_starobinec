@@ -5,4 +5,8 @@ public class Recepcny extends Zamestnanec {
         super("Dandy","recepcny");
     }
 
+    @Override
+    public void skontrRecepciu() {
+
+    }
 }

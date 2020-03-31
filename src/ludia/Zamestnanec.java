@@ -13,7 +13,9 @@ public abstract class Zamestnanec {
         return this.typ;
     }
     public String predstavSa() {
-        return this.meno + this.typ;
+        String newLine = System.getProperty("line.separator");
+        String s = "Vytvoreny " + this.typ + " " + this.meno + newLine;
+        return s;
     }
     public abstract void skontrRecepciu();
 }
