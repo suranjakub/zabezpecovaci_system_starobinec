@@ -1,3 +1,5 @@
+package main;
+
 import gui.StarobinecGUI;
 import javafx.application.Application;
 

@@ -9,10 +9,10 @@ public abstract class Zamestnanec {
         this.typ = typ;
     }
 
-    public abstract String getTyp() {
+    public String getTyp() {
         return this.typ;
     }
-    public abstract String predstavSa() {
+    public String predstavSa() {
         return this.meno + this.typ;
     }
     public abstract void skontrRecepciu();
