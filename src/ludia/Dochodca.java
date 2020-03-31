@@ -16,11 +16,10 @@ public class Dochodca {
         return (int)(Math.random() * ((max - min) + 1)) + min;
     }
 
-    public void setName(String meno) {
-        this.meno = meno;
-    }
-
-    public int getId() {
-        return this.id;
+    public String predstavSa() {
+        String newLine = System.getProperty("line.separator");
+        String s = "Prijaty dochodca " + this.meno + " " + this.id;
+        s += ", izbu ma na x:" + this.x + " y:" + this.y + newLine;
+        return s;
     }
 }
