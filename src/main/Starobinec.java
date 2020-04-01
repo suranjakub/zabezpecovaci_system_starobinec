@@ -64,6 +64,7 @@ public class Starobinec {
             public void run() {
                 if(i == 0) {
                     vykonajKontrolu();
+                    //reset timer
                     i = 10;
                 }
                 //System.out.println("Cas: " + i);
