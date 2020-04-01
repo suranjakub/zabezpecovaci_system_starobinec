@@ -16,7 +16,7 @@ public class Casovac {
             public void run() {
                 if(i == 0) {
 
-                    i = 8;
+                    i = 10;
                 }
                 //System.out.println("Cas: " + i);
                 StarobinecGUI.vypisCas(i--);

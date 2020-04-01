@@ -1,6 +1,6 @@
 package zariadenia;
 
-public class Senzor {
+public class Senzor extends Zariadenie {
 
     public Senzor() {
         predstavSa();
