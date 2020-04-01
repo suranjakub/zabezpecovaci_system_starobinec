@@ -4,6 +4,7 @@ import ludia.Dochodca;
 import ludia.Manazer;
 import ludia.Recepcny;
 import ludia.Zamestnanec;
+import zariadenia.Alarm;
 import zariadenia.Kamera;
 import zariadenia.Senzor;
 import zariadenia.Zariadenie;
@@ -24,6 +25,7 @@ public class Starobinec {
         zariadenia = new ArrayList<>();
         zariadenia.add(new Kamera());
         zariadenia.add(new Senzor());
+        zariadenia.add(new Alarm());
     }
 
     public void vytvorZamestnancov() {

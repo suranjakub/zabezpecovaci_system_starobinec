@@ -1,6 +1,11 @@
 package zariadenia;
 
 public class Kamera extends Zariadenie {
+
+    public Kamera() {
+        predstavSa();
+    }
+
     public void skontrolujDochodcov() {
         /*if(jeVdb()) {
 
@@ -10,5 +15,9 @@ public class Kamera extends Zariadenie {
             ukazRecepcnemu();
             ulozitDoDB();
         }*/
+    }
+
+    private void predstavSa() {
+        System.out.println("Kamera vytvorena");
     }
 }
