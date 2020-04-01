@@ -1,10 +1,11 @@
 package zariadenia;
 
-public class Alarm extends Zariadenie {
+public class Alarm {
 
     public Alarm() {
         predstavSa();
     }
+
 
     public void skontrolujDochodcov() {
         //pokial je v databaze

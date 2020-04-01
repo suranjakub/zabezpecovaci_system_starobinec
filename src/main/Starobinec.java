@@ -28,7 +28,6 @@ public class Starobinec {
     private void vytvorZariadenia() {
         zariadenia.add(new Kamera());
         zariadenia.add(new Senzor());
-        zariadenia.add(new Alarm());
     }
 
     public void vytvorZamestnancov() {

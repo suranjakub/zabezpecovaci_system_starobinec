@@ -53,7 +53,8 @@ public class StarobinecGUI extends Application {
 
         spustiZabezpecenie.setOnAction(e -> {
                 starobinec.spustiZabezpecenie();
-                vypis.appendText("Zabecovaci system aktivovany");
+                String s = "Zabecovaci system aktivovany" + System.lineSeparator();
+                vypis.appendText(s);
             }
         );
 
@@ -65,6 +66,7 @@ public class StarobinecGUI extends Application {
         casovacText.setText("Kontrola zabezpecenia o " + cas + "s");
     }
     public static void skontrolovane() {
-        //vypis.appendText("Kamery a senzory skontrolovane");
+        String s = "Kamery a senzory skontrolovane" + System.lineSeparator();
+        vypis.appendText(s);
     }
 }
