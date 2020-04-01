@@ -65,6 +65,6 @@ public class StarobinecGUI extends Application {
         casovacText.setText("Kontrola zabezpecenia o " + cas + "s");
     }
     public static void skontrolovane() {
-        vypis.appendText("Kamery a senzory skontrolovane");
+        //vypis.appendText("Kamery a senzory skontrolovane");
     }
 }

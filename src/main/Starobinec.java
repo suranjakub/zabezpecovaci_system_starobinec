@@ -12,18 +12,20 @@ import zariadenia.Zariadenie;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Starobinec {
     private ArrayList<Zamestnanec> zamestnanci = new ArrayList<>();
     private ArrayList<Dochodca> dochodcovia = new ArrayList<>();
-    private ArrayList<Zariadenie> zariadenia;
+    private ArrayList<Zariadenie> zariadenia = new ArrayList<>();
+    private int i = 0;
 
     public Starobinec() {
         vytvorZariadenia();
     }
 
     private void vytvorZariadenia() {
-        zariadenia = new ArrayList<>();
         zariadenia.add(new Kamera());
         zariadenia.add(new Senzor());
         zariadenia.add(new Alarm());
@@ -56,12 +58,23 @@ public class Starobinec {
     }
 
     public void spustiZabezpecenie() {
-        Casovac.spusti();
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if(i == 0) {
+                    vykonajKontrolu();
+                    i = 10;
+                }
+                //System.out.println("Cas: " + i);
+                StarobinecGUI.vypisCas(i--);
+            }
+        }, 0, 1000);
     }
 
     public void vykonajKontrolu() {
         for (int i = 0; i < zariadenia.size(); ++i) {
-            zariadenia.get(i).
+            zariadenia.get(i).skontrolujDochodcov();
         }
         StarobinecGUI.skontrolovane();
     }

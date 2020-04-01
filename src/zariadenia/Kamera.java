@@ -19,7 +19,7 @@ public class Kamera extends Zariadenie {
         System.out.println("Kamera skontrolovana");
     }
 
-    private void predstavSa() {
+    void predstavSa() {
         System.out.println("Kamera vytvorena");
     }
 }

@@ -18,7 +18,7 @@ public class Senzor extends Zariadenie {
         System.out.println("Senzor skontrolovany");
     }
 
-    private void predstavSa() {
+    void predstavSa() {
         System.out.println("Senzor vytvoreny");
     }
 }
