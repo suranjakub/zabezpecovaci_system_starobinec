@@ -67,14 +67,15 @@ public class Starobinec {
                     i = 10;
                 }
                 //System.out.println("Cas: " + i);
-                StarobinecGUI.vypisCas(i--);
+                StarobinecGUI.vypisCas(i);
+                i--;
             }
         }, 0, 1000);
     }
 
     public void vykonajKontrolu() {
-        for (int i = 0; i < zariadenia.size(); ++i) {
-            zariadenia.get(i).skontrolujDochodcov();
+        for (int j = 0; j < zariadenia.size(); ++j) {
+            zariadenia.get(j).skontrolujDochodcov();
         }
         StarobinecGUI.skontrolovane();
     }
