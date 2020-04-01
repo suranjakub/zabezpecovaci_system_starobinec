@@ -15,6 +15,7 @@ public class Senzor extends Zariadenie {
             ukazRecepcnemu();
             ulozitDoDB();
         }*/
+        System.out.println("Senzor skontrolovany");
     }
 
     private void predstavSa() {

@@ -1,5 +1,6 @@
 package main;
 
+import gui.StarobinecGUI;
 import ludia.Dochodca;
 import ludia.Manazer;
 import ludia.Recepcny;
@@ -58,7 +59,10 @@ public class Starobinec {
         Casovac.spusti();
     }
 
-    public void skontroluj() {
-
+    public void vykonajKontrolu() {
+        for (int i = 0; i < zariadenia.size(); ++i) {
+            zariadenia.get(i).
+        }
+        StarobinecGUI.skontrolovane();
     }
 }

@@ -18,7 +18,7 @@ public class StarobinecGUI extends Application {
     private Button spustiZabezpecenie = new Button("Spusti zabezpecovaci system");
     private TextField dochodci = new TextField();
     private Label dochodciOzn = new Label("Dochodci");
-    private TextArea vypis = new TextArea();
+    private static TextArea vypis = new TextArea();
     private ScrollPane skrol = new ScrollPane();
     private static Text casovacText = new Text("Zabezpecovaci system nespusteny");
 
@@ -63,5 +63,8 @@ public class StarobinecGUI extends Application {
 
     public static void vypisCas(int cas) {
         casovacText.setText("Kontrola zabezpecenia o " + cas + "s");
+    }
+    public static void skontrolovane() {
+        vypis.appendText("Kamery a senzory skontrolovane");
     }
 }

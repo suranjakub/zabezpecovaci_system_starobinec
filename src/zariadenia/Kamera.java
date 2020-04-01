@@ -7,6 +7,7 @@ public class Kamera extends Zariadenie {
     }
 
     public void skontrolujDochodcov() {
+        //pokial je v databaze
         /*if(jeVdb()) {
 
         }
@@ -15,6 +16,7 @@ public class Kamera extends Zariadenie {
             ukazRecepcnemu();
             ulozitDoDB();
         }*/
+        System.out.println("Kamera skontrolovana");
     }
 
     private void predstavSa() {

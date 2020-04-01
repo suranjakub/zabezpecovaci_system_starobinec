@@ -1,9 +1,11 @@
 package main;
 
 import gui.StarobinecGUI;
-
+import main.Starobinec;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static main.Starobinec.*;
 
 public class Casovac {
     public static int i = 10;
@@ -15,7 +17,7 @@ public class Casovac {
             @Override
             public void run() {
                 if(i == 0) {
-
+                    Starobinec.
                     i = 10;
                 }
                 //System.out.println("Cas: " + i);
