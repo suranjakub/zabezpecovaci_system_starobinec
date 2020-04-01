@@ -4,6 +4,9 @@ import ludia.Dochodca;
 import ludia.Manazer;
 import ludia.Recepcny;
 import ludia.Zamestnanec;
+import zariadenia.Kamera;
+import zariadenia.Senzor;
+import zariadenia.Zariadenie;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +14,17 @@ import java.util.List;
 public class Starobinec {
     private ArrayList<Zamestnanec> zamestnanci = new ArrayList<>();
     private ArrayList<Dochodca> dochodcovia = new ArrayList<>();
+    private ArrayList<Zariadenie> zariadenia;
+
+    public Starobinec() {
+        vytvorZariadenia();
+    }
+
+    private void vytvorZariadenia() {
+        zariadenia = new ArrayList<>();
+        zariadenia.add(new Kamera());
+        zariadenia.add(new Senzor());
+    }
 
     public void vytvorZamestnancov() {
         zamestnanci.add(new Recepcny());
@@ -36,5 +50,13 @@ public class Starobinec {
             sprava += dochodcovia.get(i).predstavSa();
         }
         return sprava;
+    }
+
+    public void spustiZabezpecenie() {
+        Casovac.spusti();
+    }
+
+    public void skontroluj() {
+
     }
 }
