@@ -7,15 +7,10 @@ public class Kamera extends Zariadenie {
     }
 
     public void skontrolujDochodcov() {
-        //pokial je v databaze
-        /*if(jeVdb()) {
-
-        }
-        //nie je v databaze
-        else {
-            ukazRecepcnemu();
-            ulozitDoDB();
-        }*/
+        //skontroluj ci sa dochodca nachadza v DB
+        //poslat alarm hlasenie recepcnemu, ci ho pozna
+        //ak to nebol falosny poplach, pridat dochodcu do DB,
+        //zmenit mu flag - utecenec
         System.out.println("Kamera skontrolovana");
     }
 

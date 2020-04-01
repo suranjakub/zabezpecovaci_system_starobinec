@@ -7,14 +7,8 @@ public class Senzor extends Zariadenie {
     }
 
     public void skontrolujDochodcov() {
-        /*if(jeVdb()) {
-
-        }
-        //nie je v databaze
-        else {
-            ukazRecepcnemu();
-            ulozitDoDB();
-        }*/
+        //ak zisti pohyb, posle x, y suradnice recepcnemu
+        //ten potom musi overit ci sa jedna o falosny poplach
         System.out.println("Senzor skontrolovany");
     }
 
