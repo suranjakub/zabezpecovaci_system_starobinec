@@ -21,6 +21,7 @@ public class Starobinec {
     private ArrayList<Zariadenie> zariadenia = new ArrayList<>();
     private int i = 0;
     private StarobinecGUI GUIko;
+    private Timer timer;
 
     public Starobinec() {
         vytvorZariadenia();
@@ -62,7 +63,7 @@ public class Starobinec {
     }
 
     public void spustiZabezpecenie() {
-        Timer timer = new Timer();
+        timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -76,6 +77,10 @@ public class Starobinec {
                 i--;
             }
         }, 0, 1000);
+    }
+
+    public void vypniSa() {
+        timer.cancel();
     }
 
     public void vykonajKontrolu() {

@@ -13,7 +13,8 @@ import javafx.stage.Stage;
 import main.Starobinec;
 
 public class StarobinecGUI extends Application {
-    private static StarobinecGUI instancia;
+    //private static StarobinecGUI instancia;
+    private Starobinec starobinec;
     private Button vytvorZamestnancov = new Button("Vytvor zamestnancov");
     private Button vytvorDochodcov = new Button("Vytvor dochodcov");
     private Button spustiZabezpecenie = new Button("Spusti zabezpecovaci system");
@@ -23,29 +24,29 @@ public class StarobinecGUI extends Application {
     private ScrollPane skrol = new ScrollPane();
     private Text casovacText = new Text("Zabezpecovaci system nespusteny");
 
-    public StarobinecGUI() {
+    /*public StarobinecGUI() {
         instancia = this;
-    }
+    }*/
 
-    public synchronized static StarobinecGUI getInstance() {
-        /*if(!instancia) {
+    /*public synchronized static StarobinecGUI getInstance() {
+        if(!instancia) {
             Thread.start {
                 // Have to run in a thread because launch doesn't return
                 Application.launch(MyClass.class);
             }
             while(!instance)
                 Thread.sleep(100);
-        }*/
+        }
         return instancia;
-    }
+    }*/
 
     @Override
     public void start(Stage hlavneOkno) throws Exception {
         hlavneOkno.setTitle("Starobinec");
 
         FlowPane pane = new FlowPane();
-        Starobinec starobinec = new Starobinec();
-        starobinec.ziskajGUI(instancia);
+        starobinec = new Starobinec();
+        starobinec.ziskajGUI(this);
 
         pane.getChildren().add(vytvorZamestnancov);
         pane.getChildren().add(dochodciOzn);
@@ -78,6 +79,13 @@ public class StarobinecGUI extends Application {
 
         hlavneOkno.setScene(new Scene(skrol, 500, 300));
         hlavneOkno.show();
+    }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        starobinec.vypniSa();
+        System.out.println("Aplikacia bola vypnuta so vsetkymi procesmi");
     }
 
     public void vypisCas(int cas) {
