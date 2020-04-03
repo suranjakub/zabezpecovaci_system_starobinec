@@ -13,14 +13,31 @@ import javafx.stage.Stage;
 import main.Starobinec;
 
 public class StarobinecGUI extends Application {
+    private static StarobinecGUI instancia;
     private Button vytvorZamestnancov = new Button("Vytvor zamestnancov");
     private Button vytvorDochodcov = new Button("Vytvor dochodcov");
     private Button spustiZabezpecenie = new Button("Spusti zabezpecovaci system");
     private TextField dochodci = new TextField();
     private Label dochodciOzn = new Label("Dochodci");
-    private static TextArea vypis = new TextArea();
+    private TextArea vypis = new TextArea();
     private ScrollPane skrol = new ScrollPane();
-    private static Text casovacText = new Text("Zabezpecovaci system nespusteny");
+    private Text casovacText = new Text("Zabezpecovaci system nespusteny");
+
+    public StarobinecGUI() {
+        instancia = this;
+    }
+
+    public synchronized static StarobinecGUI getInstance() {
+        /*if(!instancia) {
+            Thread.start {
+                // Have to run in a thread because launch doesn't return
+                Application.launch(MyClass.class);
+            }
+            while(!instance)
+                Thread.sleep(100);
+        }*/
+        return instancia;
+    }
 
     @Override
     public void start(Stage hlavneOkno) throws Exception {
@@ -28,6 +45,7 @@ public class StarobinecGUI extends Application {
 
         FlowPane pane = new FlowPane();
         Starobinec starobinec = new Starobinec();
+        starobinec.ziskajGUI(instancia);
 
         pane.getChildren().add(vytvorZamestnancov);
         pane.getChildren().add(dochodciOzn);
@@ -62,10 +80,11 @@ public class StarobinecGUI extends Application {
         hlavneOkno.show();
     }
 
-    public static void vypisCas(int cas) {
+    public void vypisCas(int cas) {
         casovacText.setText("Kontrola zabezpecenia o " + cas + "s");
     }
-    public static void skontrolovane() {
+
+    public void skontrolovane() {
         String s = "Kamery a senzory skontrolovane" + System.lineSeparator();
         vypis.appendText(s);
     }

@@ -20,9 +20,14 @@ public class Starobinec {
     private ArrayList<Dochodca> dochodcovia = new ArrayList<>();
     private ArrayList<Zariadenie> zariadenia = new ArrayList<>();
     private int i = 0;
+    private StarobinecGUI GUIko;
 
     public Starobinec() {
         vytvorZariadenia();
+    }
+
+    public void ziskajGUI(StarobinecGUI referencia) {
+        this.GUIko = referencia;
     }
 
     private void vytvorZariadenia() {
@@ -67,7 +72,7 @@ public class Starobinec {
                     i = 10;
                 }
                 //System.out.println("Cas: " + i);
-                StarobinecGUI.vypisCas(i);
+                GUIko.vypisCas(i);
                 i--;
             }
         }, 0, 1000);
@@ -77,6 +82,6 @@ public class Starobinec {
         for (int j = 0; j < zariadenia.size(); ++j) {
             zariadenia.get(j).skontrolujDochodcov();
         }
-        StarobinecGUI.skontrolovane();
+        GUIko.skontrolovane();
     }
 }
