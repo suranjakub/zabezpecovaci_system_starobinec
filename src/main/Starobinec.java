@@ -89,6 +89,7 @@ public class Starobinec {
         for (int j = 0; j < zariadenia.size(); ++j) {
             zariadenia.get(j).skontrolujDochodcov();
         }
-        GUIko.skontrolovane();
+        String s = "Kamery a senzory skontrolovane" + System.lineSeparator();
+        GUIko.vypis(s);
     }
 }

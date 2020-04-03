@@ -22,4 +22,6 @@ public class Dochodca {
         s += ", izbu ma na [" + this.x + "," + this.y + "]" + newLine;
         return s;
     }
+
+    
 }

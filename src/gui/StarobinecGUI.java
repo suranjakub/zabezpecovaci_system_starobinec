@@ -92,8 +92,7 @@ public class StarobinecGUI extends Application {
         casovacText.setText("Kontrola zabezpecenia o " + cas + "s");
     }
 
-    public void skontrolovane() {
-        String s = "Kamery a senzory skontrolovane" + System.lineSeparator();
+    public void vypis(String s) {
         vypis.appendText(s);
     }
 }
