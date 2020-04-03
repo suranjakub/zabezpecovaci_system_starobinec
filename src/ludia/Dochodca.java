@@ -19,7 +19,7 @@ public class Dochodca {
     public String predstavSa() {
         String newLine = System.getProperty("line.separator");
         String s = "Prijaty dochodca " + this.meno + " " + this.id;
-        s += ", izbu ma na x:" + this.x + " y:" + this.y + newLine;
+        s += ", izbu ma na [" + this.x + "," + this.y + "]" + newLine;
         return s;
     }
 }
