@@ -19,11 +19,13 @@ public class Starobinec {
     private ArrayList<Zamestnanec> zamestnanci = new ArrayList<>();
     private ArrayList<Dochodca> dochodcovia = new ArrayList<>();
     private ArrayList<Zariadenie> zariadenia = new ArrayList<>();
-    private int i = 0;
+    private int cas = 0;
     private StarobinecGUI GUIko;
     private Timer timer;
+    private Starobinec hlavnyStarobinec;
 
     public Starobinec() {
+        hlavnyStarobinec = this;
         vytvorZariadenia();
     }
 
@@ -67,16 +69,16 @@ public class Starobinec {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                if(i == 0) {
+                GUIko.vypisCas(hlavnyStarobinec.cas);
+                if(hlavnyStarobinec.cas == 0) {
                     vykonajKontrolu();
                     //reset timer
-                    i = 10;
+                    hlavnyStarobinec.cas = 10;
                 }
                 //System.out.println("Cas: " + i);
-                GUIko.vypisCas(i);
-                i--;
+                hlavnyStarobinec.cas--;
             }
-        }, 0, 1000);
+        }, 100, 1000);
     }
 
     public void vypniSa() {
