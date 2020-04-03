@@ -78,7 +78,7 @@ public class Starobinec {
                 //System.out.println("Cas: " + i);
                 hlavnyStarobinec.cas--;
             }
-        }, 100, 1000);
+        }, 1000, 1000);
     }
 
     public void vypniSa() {
