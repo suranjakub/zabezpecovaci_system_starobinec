@@ -21,10 +21,8 @@ public class Starobinec {
     private int cas = 0;
     private StarobinecGUI GUIko;
     private Timer timer;
-    private Starobinec hlavnyStarobinec;
 
     private Starobinec() {
-        hlavnyStarobinec = this;
         vytvorZariadenia();
     }
 
@@ -77,14 +75,14 @@ public class Starobinec {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                GUIko.vypisCas(hlavnyStarobinec.cas);
-                if(hlavnyStarobinec.cas == 0) {
+                GUIko.vypisCas(starobinec.cas);
+                if(starobinec.cas == 0) {
                     vykonajKontrolu();
                     //reset timer
-                    hlavnyStarobinec.cas = 10;
+                    starobinec.cas = 10;
                 }
                 //System.out.println("Cas: " + i);
-                hlavnyStarobinec.cas--;
+                starobinec.cas--;
             }
         }, 1000, 1000);
     }
