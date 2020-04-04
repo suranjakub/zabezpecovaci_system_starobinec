@@ -15,13 +15,13 @@ public class Dochodca {
     private static ArrayList<Dochodca> dochodcovia = new ArrayList<>();
     private static StarobinecGUI GUIko;
     private static final int cas = 5;
-    private static Timer timer;
+    private static Timer timer = null;
 
     public Dochodca() {
         this.meno = "Jozko";
         this.x = getRandomNumberInRange(1, 100);
         this.y = getRandomNumberInRange(1, 100);
-        this.id = ++pocDochodcov;
+        this.id = pocDochodcov++;
         this.ziskajGUI();
         if(!naplanovanyUtek)
             this.naplanujUtek();
@@ -51,7 +51,7 @@ public class Dochodca {
             @Override
             public void run() {
                 //kazdych cas sekund random dochodca utecie
-                int cislo = getRandomNumberInRange(0, pocDochodcov);
+                int cislo = getRandomNumberInRange(0, pocDochodcov-1);
                 dochodcovia.get(cislo).utec();
             }
         }, cas*1000, cas*1000);
@@ -73,7 +73,7 @@ public class Dochodca {
     }
 
     public void vypniCasovac() {
-        timer.purge();
-        timer.cancel();
+        if (timer != null)
+            timer.cancel();;
     }
 }

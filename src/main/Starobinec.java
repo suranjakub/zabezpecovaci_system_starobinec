@@ -20,7 +20,7 @@ public class Starobinec {
     private ArrayList<Zariadenie> zariadenia = new ArrayList<>();
     private int cas = 0;
     private StarobinecGUI GUIko;
-    private Timer timer;
+    private Timer timer = null;
 
     private Starobinec() {
         vytvorZariadenia();
@@ -92,8 +92,8 @@ public class Starobinec {
     }
 
     public void vypniSa() {
-        timer.purge();
-        timer.cancel();
+        if (timer != null)
+            timer.cancel();
         dochodcovia.get(0).vypniCasovac();
     }
 
