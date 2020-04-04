@@ -45,7 +45,7 @@ public class StarobinecGUI extends Application {
         hlavneOkno.setTitle("Starobinec");
 
         FlowPane pane = new FlowPane();
-        starobinec = new Starobinec();
+        starobinec = Starobinec.getInstance();
         starobinec.ziskajGUI(this);
 
         pane.getChildren().add(vytvorZamestnancov);

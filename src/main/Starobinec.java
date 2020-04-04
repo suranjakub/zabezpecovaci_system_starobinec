@@ -16,6 +16,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Starobinec {
+    private static Starobinec instancia = null;
     private ArrayList<Zamestnanec> zamestnanci = new ArrayList<>();
     private ArrayList<Dochodca> dochodcovia;
     private ArrayList<Zariadenie> zariadenia = new ArrayList<>();
@@ -24,9 +25,15 @@ public class Starobinec {
     private Timer timer;
     private Starobinec hlavnyStarobinec;
 
-    public Starobinec() {
+    private Starobinec() {
         hlavnyStarobinec = this;
         vytvorZariadenia();
+    }
+
+    public static Starobinec getInstance() {
+        if(instancia == null)
+            instancia = new Starobinec();
+        return instancia;
     }
 
     public void ziskajGUI(StarobinecGUI referencia) {
