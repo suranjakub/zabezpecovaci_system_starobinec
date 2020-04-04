@@ -5,18 +5,16 @@ import ludia.Dochodca;
 import ludia.Manazer;
 import ludia.Recepcny;
 import ludia.Zamestnanec;
-import zariadenia.Alarm;
 import zariadenia.Kamera;
 import zariadenia.Senzor;
 import zariadenia.Zariadenie;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Starobinec {
-    private static Starobinec instancia = null;
+    private static Starobinec starobinec = null;
     private ArrayList<Zamestnanec> zamestnanci = new ArrayList<>();
     private ArrayList<Dochodca> dochodcovia;
     private ArrayList<Zariadenie> zariadenia = new ArrayList<>();
@@ -31,9 +29,9 @@ public class Starobinec {
     }
 
     public static Starobinec getInstance() {
-        if(instancia == null)
-            instancia = new Starobinec();
-        return instancia;
+        if(starobinec == null)
+            starobinec = new Starobinec();
+        return starobinec;
     }
 
     public void ziskajGUI(StarobinecGUI referencia) {
