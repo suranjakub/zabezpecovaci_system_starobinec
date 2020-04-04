@@ -20,6 +20,7 @@ public class Dochodca {
         this.x = getRandomNumberInRange(1, 100);
         this.y = getRandomNumberInRange(1, 100);
         this.id = ++pocDochodcov;
+        this.ziskajGUI();
         this.naplanujUtek();
     }
 
@@ -58,5 +59,9 @@ public class Dochodca {
     private void utec() {
         this.x = getRandomNumberInRange(100, 500);
         this.y = getRandomNumberInRange(100, 500);
+
+        String sprava;
+        sprava = "Dochodca "+this.id+" zmnenil poziciu na ["+this.x+","+this.y+"]";
+        GUIko.vypis(sprava);
     }
 }
