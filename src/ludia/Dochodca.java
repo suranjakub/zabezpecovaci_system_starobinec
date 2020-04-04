@@ -1,15 +1,19 @@
 package ludia;
 
+import java.util.ArrayList;
+
 public class Dochodca {
     private int x, y, id;
     private String meno;
     private static int pocDochodcov = 0;
+    private ArrayList<Dochodca> dochodcovia = new ArrayList<>();
 
     public Dochodca() {
         this.meno = "Jozko";
-        this.x = getRandomNumberInRange(1, 200);
-        this.y = getRandomNumberInRange(1, 200);
+        this.x = getRandomNumberInRange(1, 100);
+        this.y = getRandomNumberInRange(1, 100);
         this.id = ++pocDochodcov;
+        this.naplanujUtek();
     }
 
     private static int getRandomNumberInRange(int min, int max) {
@@ -23,5 +27,11 @@ public class Dochodca {
         return s;
     }
 
-    
+    public ArrayList<Dochodca> getDochodcovia() {
+        return dochodcovia;
+    }
+
+    public void naplanujUtek() {
+        //ArrayList<Dochodca> dochodcovia =
+    }
 }

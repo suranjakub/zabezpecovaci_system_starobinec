@@ -17,7 +17,7 @@ import java.util.TimerTask;
 
 public class Starobinec {
     private ArrayList<Zamestnanec> zamestnanci = new ArrayList<>();
-    private ArrayList<Dochodca> dochodcovia = new ArrayList<>();
+    private ArrayList<Dochodca> dochodcovia;
     private ArrayList<Zariadenie> zariadenia = new ArrayList<>();
     private int cas = 0;
     private StarobinecGUI GUIko;
@@ -52,7 +52,10 @@ public class Starobinec {
     }
 
     public void vytvorDochodcov(int pocet) {
-        for (int i = 0; i < pocet; ++i)
+        Dochodca dochodca1 = new Dochodca();
+        dochodcovia = dochodca1.getDochodcovia();
+        dochodcovia.add(dochodca1);
+        for (int i = 1; i < pocet; ++i)
             dochodcovia.add(new Dochodca());
     }
 
@@ -82,6 +85,7 @@ public class Starobinec {
     }
 
     public void vypniSa() {
+        timer.purge();
         timer.cancel();
     }
 
