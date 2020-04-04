@@ -32,8 +32,12 @@ public class Starobinec {
         return starobinec;
     }
 
-    public void ziskajGUI(StarobinecGUI referencia) {
+    public void setGUI(StarobinecGUI referencia) {
         this.GUIko = referencia;
+    }
+
+    public StarobinecGUI getGUI() {
+        return this.GUIko;
     }
 
     private void vytvorZariadenia() {
