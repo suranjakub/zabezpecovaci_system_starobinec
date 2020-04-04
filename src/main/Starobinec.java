@@ -94,13 +94,14 @@ public class Starobinec {
     public void vypniSa() {
         timer.purge();
         timer.cancel();
+        dochodcovia.get(0).vypniCasovac();
     }
 
     public void vykonajKontrolu() {
         for (int j = 0; j < zariadenia.size(); ++j) {
             zariadenia.get(j).skontrolujDochodcov();
         }
-        String s = "Kamery a senzory skontrolovane" + System.lineSeparator();
+        String s = "Kamery a senzory skontrolovane";
         GUIko.vypis(s);
     }
 }

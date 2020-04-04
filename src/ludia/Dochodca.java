@@ -9,11 +9,13 @@ import java.util.TimerTask;
 
 public class Dochodca {
     private int x, y, id;
+    private static boolean naplanovanyUtek = false;
     private String meno;
     private static int pocDochodcov = 0;
-    private ArrayList<Dochodca> dochodcovia = new ArrayList<>();
+    private static ArrayList<Dochodca> dochodcovia = new ArrayList<>();
     private static StarobinecGUI GUIko;
     private static final int cas = 5;
+    private static Timer timer;
 
     public Dochodca() {
         this.meno = "Jozko";
@@ -21,7 +23,8 @@ public class Dochodca {
         this.y = getRandomNumberInRange(1, 100);
         this.id = ++pocDochodcov;
         this.ziskajGUI();
-        this.naplanujUtek();
+        if(!naplanovanyUtek)
+            this.naplanujUtek();
     }
 
     private static int getRandomNumberInRange(int min, int max) {
@@ -40,12 +43,15 @@ public class Dochodca {
     }
 
     public void naplanujUtek() {
+        if(!naplanovanyUtek)
+            naplanovanyUtek = true;
         //randomne sa vyberie, ktory dochodca utecie
-        int cislo = getRandomNumberInRange(0, pocDochodcov);
-        Timer timer = new Timer();
+        timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
+                //kazdych cas sekund random dochodca utecie
+                int cislo = getRandomNumberInRange(0, pocDochodcov);
                 dochodcovia.get(cislo).utec();
             }
         }, cas*1000, cas*1000);
@@ -62,6 +68,12 @@ public class Dochodca {
 
         String sprava;
         sprava = "Dochodca "+this.id+" zmnenil poziciu na ["+this.x+","+this.y+"]";
+        System.out.println(sprava);
         GUIko.vypis(sprava);
+    }
+
+    public void vypniCasovac() {
+        timer.purge();
+        timer.cancel();
     }
 }

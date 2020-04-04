@@ -93,6 +93,7 @@ public class StarobinecGUI extends Application {
     }
 
     public void vypis(String s) {
+        s += System.lineSeparator();
         vypis.appendText(s);
     }
 }
