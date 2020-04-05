@@ -16,7 +16,7 @@ import java.util.TimerTask;
 public class Starobinec {
     private static Starobinec starobinec = null;
     private ArrayList<Zamestnanec> zamestnanci = new ArrayList<>();
-    private ArrayList<Dochodca> dochodcovia;
+    private ArrayList<Dochodca> dochodcovia = null;
     private ArrayList<Zariadenie> zariadenia = new ArrayList<>();
     private int cas = 0;
     private StarobinecGUI GUIko;
@@ -94,7 +94,8 @@ public class Starobinec {
     public void vypniSa() {
         if (timer != null)
             timer.cancel();
-        dochodcovia.get(0).vypniCasovac();
+        if( dochodcovia != null)
+            dochodcovia.get(0).vypniCasovac();
     }
 
     public void vykonajKontrolu() {

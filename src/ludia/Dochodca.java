@@ -14,7 +14,7 @@ public class Dochodca {
     private static int pocDochodcov = 0;
     private static ArrayList<Dochodca> dochodcovia = new ArrayList<>();
     private static StarobinecGUI GUIko;
-    private static final int cas = 5;
+    private static final int cas = 15;
     private static Timer timer = null;
 
     public Dochodca() {
