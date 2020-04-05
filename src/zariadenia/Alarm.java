@@ -1,5 +1,9 @@
 package zariadenia;
 
+import ludia.Dochodca;
+
+import java.util.ArrayList;
+
 public class Alarm {
 
     public Alarm() {
@@ -7,7 +11,7 @@ public class Alarm {
     }
 
 
-    public void skontrolujDochodcov() {
+    public void skontrolujDochodcov(ArrayList<Dochodca> dochodcovia) {
         //pokial je v databaze
         /*if(jeVdb()) {
 

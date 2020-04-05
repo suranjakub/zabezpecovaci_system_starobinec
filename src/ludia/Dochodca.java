@@ -38,6 +38,9 @@ public class Dochodca {
         return s;
     }
 
+    public int getX() { return this.x }
+    public int getY() { return this.y }
+
     public ArrayList<Dochodca> getDochodcovia() {
         return dochodcovia;
     }

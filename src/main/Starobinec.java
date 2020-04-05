@@ -17,6 +17,7 @@ public class Starobinec {
     private static Starobinec starobinec = null;
     private ArrayList<Zamestnanec> zamestnanci = new ArrayList<>();
     private ArrayList<Dochodca> dochodcovia = null;
+    private ArrayList<Dochodca> dbUtecencov = null;
     private ArrayList<Zariadenie> zariadenia = new ArrayList<>();
     private int cas = 0;
     private StarobinecGUI GUIko;
@@ -100,9 +101,18 @@ public class Starobinec {
 
     public void vykonajKontrolu() {
         for (int j = 0; j < zariadenia.size(); ++j) {
-            zariadenia.get(j).skontrolujDochodcov();
+            zariadenia.get(j).skontrolujDochodcov(dochodcovia);
         }
         String s = "Kamery a senzory skontrolovane";
         GUIko.vypis(s);
+    }
+
+    public ArrayList<Dochodca> getDB() {
+        return dbUtecencov;
+    }
+
+    public void pridajDoDB(Dochodca dochodca) {
+        dbUtecencov.add(dochodca);
+        System.out.println("Dochodca "+this.id+" pridany do databazy");
     }
 }
