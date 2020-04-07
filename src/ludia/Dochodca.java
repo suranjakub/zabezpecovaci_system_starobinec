@@ -23,8 +23,8 @@ public class Dochodca {
         this.y = getRandomNumberInRange(1, 100);
         this.id = pocDochodcov++;
         this.ziskajGUI();
-        if(!naplanovanyUtek)
-            this.naplanujUtek();
+        /*if(!naplanovanyUtek)
+            this.naplanujUtek();*/
     }
 
     private static int getRandomNumberInRange(int min, int max) {
@@ -38,8 +38,9 @@ public class Dochodca {
         return s;
     }
 
-    public int getX() { return this.x }
-    public int getY() { return this.y }
+    public int getX() { return this.x; }
+    public int getY() { return this.y; }
+    public int getId() { return this.id; }
 
     public ArrayList<Dochodca> getDochodcovia() {
         return dochodcovia;
@@ -48,7 +49,9 @@ public class Dochodca {
     public void naplanujUtek() {
         if(!naplanovanyUtek)
             naplanovanyUtek = true;
-        //randomne sa vyberie, ktory dochodca utecie
+        int cislo = getRandomNumberInRange(0, pocDochodcov-1);
+        dochodcovia.get(cislo).utec();
+        /*//randomne sa vyberie, ktory dochodca utecie
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -57,7 +60,7 @@ public class Dochodca {
                 int cislo = getRandomNumberInRange(0, pocDochodcov-1);
                 dochodcovia.get(cislo).utec();
             }
-        }, cas*1000, cas*1000);
+        }, cas*1000, cas*1000);*/
     }
 
     public void ziskajGUI() {
@@ -66,8 +69,8 @@ public class Dochodca {
     }
 
     private void utec() {
-        this.x = getRandomNumberInRange(100, 500);
-        this.y = getRandomNumberInRange(100, 500);
+        this.x = getRandomNumberInRange(200, 500); //neskorej sem daj 100 - 500
+        this.y = getRandomNumberInRange(200, 500); //neskorej sem daj 100 - 500
 
         String sprava;
         sprava = "Dochodca "+this.id+" zmnenil poziciu na ["+this.x+","+this.y+"]";

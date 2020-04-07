@@ -3,25 +3,39 @@ package zariadenia;
 import ludia.Dochodca;
 import main.Starobinec;
 
-import javax.print.Doc;
 import java.util.ArrayList;
 
 public class Kamera extends Zariadenie {
-    private static ArrayList<Dochodca> databaza = null;
+    private static ArrayList<Dochodca> databaza;
     private static final int hranicaX = 250, hranicaY = 250;
+    private Starobinec starobinec;
 
     public Kamera() {
         predstavSa();
     }
 
     public void skontrolujDochodcov(ArrayList<Dochodca> dochodcovia) {
-        //skontroluj ci sa dochodca nachadza v DB
-        this.skontrolujSpojeniesDB();
-        this.prehladajDB(dochodcovia);
-        //poslat alarm hlasenie recepcnemu, ci ho pozna
-        //ak to nebol falosny poplach, pridat dochodcu do DB,
-        //zmenit mu flag - utecenec
-        System.out.println("Kamera skontrolovana");
+        if (dochodcovia == null) {
+            Starobinec.getInstance().vypisDoGUI("NIE SU VYTVORENY DOCHODCOVIA!");
+            System.out.println("NIE SU VYTVORENY DOCHODCOVIA!");
+        }
+        else {
+            //skontroluj ci sa dochodca nachadza v DB
+            skontrolujSpojeniesDB();
+            for (Dochodca dochodca : dochodcovia) {
+                if (jeVzornomPoli(dochodca))
+                    if (skontrolujCiJevDB(dochodca))
+                        System.out.println("Dochodca "+dochodca.getId()+" utiekol a JE aj v DB");
+                    else
+                        System.out.println("Dochodca "+dochodca.getId()+" utiekol ale NIE JE v DB");
+            }
+
+            //poslat alarm hlasenie recepcnemu, ci ho pozna
+            //ak to nebol falosny poplach, pridat dochodcu do DB,
+            //zmenit mu flag - utecenec
+
+            System.out.println("Kamera skontrolovana");
+        }
     }
 
     private void skontrolujSpojeniesDB() {
@@ -29,23 +43,22 @@ public class Kamera extends Zariadenie {
             databaza = Starobinec.getInstance().getDB();
     }
 
-    public int prehladajDB(ArrayList<Dochodca> dochodcovia) {
-        for (int i = 0; i < databaza.size(); i++) {
-            for (int j = 0; j < dochodcovia.size(); j++) {
-                Dochodca dochodca1 = dochodcovia.get(j);
-                Dochodca dochodca2 = dochodcovia.get(i);
-                //dochodca je v rangi a aj v DB
-                if(jeVzornomPoli(dochodca1) && (dochodca1 == dochodca2))
-                    return 1;
-            }
+    public boolean skontrolujCiJevDB(Dochodca dochodca) {
+        if (databaza == null) {
+            return false;
         }
-        return 0;
+        else {
+            for (Dochodca i : databaza) {
+                //pokial je dochodca je v databaze
+                if (jeVzornomPoli(i) && dochodca == i)
+                    return true;
+            }
+            return false;
+        }
     }
 
     private boolean jeVzornomPoli(Dochodca dochodca) {
-        if(dochodca.getX() > hranicaX || dochodca.getY() > hranicaY)
-            return true;
-        return false;
+        return dochodca.getX() > hranicaX || dochodca.getY() > hranicaY;
     }
 
     void predstavSa() {

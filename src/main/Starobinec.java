@@ -65,6 +65,7 @@ public class Starobinec {
         dochodcovia.add(dochodca1);
         for (int i = 1; i < pocet; ++i)
             dochodcovia.add(new Dochodca());
+        dochodca1.naplanujUtek();
     }
 
     public String predstavDochodcov() {
@@ -80,14 +81,17 @@ public class Starobinec {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                GUIko.vypisCas(starobinec.cas);
-                if(starobinec.cas == 0) {
-                    vykonajKontrolu();
-                    //reset timer
-                    starobinec.cas = 10;
+                synchronized (Starobinec.class) {
+                    GUIko.vypisCas(starobinec.cas);
+                    if(starobinec.cas == 0) {
+                        vykonajKontrolu();
+                        //System.out.println("Vykonavam kontrolu");
+                        //reset timer
+                        starobinec.cas = 10;
+                    }
+                    //System.out.println("Cas: " + i);
+                    starobinec.cas--;
                 }
-                //System.out.println("Cas: " + i);
-                starobinec.cas--;
             }
         }, 1000, 1000);
     }
@@ -95,16 +99,16 @@ public class Starobinec {
     public void vypniSa() {
         if (timer != null)
             timer.cancel();
-        if( dochodcovia != null)
+        if (dochodcovia != null)
             dochodcovia.get(0).vypniCasovac();
     }
 
     public void vykonajKontrolu() {
-        for (int j = 0; j < zariadenia.size(); ++j) {
-            zariadenia.get(j).skontrolujDochodcov(dochodcovia);
-        }
-        String s = "Kamery a senzory skontrolovane";
-        GUIko.vypis(s);
+        new Kamera().skontrolujDochodcov(dochodcovia);
+        /*for (int j = 0; j < zariadenia.size(); ++j)
+            zariadenia.get(j).skontrolujDochodcov(dochodcovia);*/
+        //String s = "Kamery a senzory skontrolovane";
+        //GUIko.vypis(s);
     }
 
     public ArrayList<Dochodca> getDB() {
@@ -113,6 +117,10 @@ public class Starobinec {
 
     public void pridajDoDB(Dochodca dochodca) {
         dbUtecencov.add(dochodca);
-        System.out.println("Dochodca "+this.id+" pridany do databazy");
+        System.out.println("Dochodca "+dochodca.getId()+" pridany do databazy");
+    }
+
+    public void vypisDoGUI(String s) {
+        GUIko.vypis(s);
     }
 }
