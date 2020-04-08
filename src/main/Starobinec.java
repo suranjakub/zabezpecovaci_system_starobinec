@@ -3,7 +3,7 @@ package main;
 import gui.StarobinecGUI;
 import ludia.Dochodca;
 import ludia.Manazer;
-import ludia.Recepcny;
+import ludia.Recepcia;
 import ludia.Zamestnanec;
 import zariadenia.Kamera;
 import zariadenia.Senzor;
@@ -47,7 +47,7 @@ public class Starobinec {
     }
 
     public void vytvorZamestnancov() {
-        zamestnanci.add(new Recepcny());
+        zamestnanci.add(new Recepcia());
         zamestnanci.add(new Manazer());
     }
 

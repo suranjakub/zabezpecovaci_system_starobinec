@@ -1,7 +1,7 @@
 package ludia;
 
-public class Recepcny extends Zamestnanec {
-    public Recepcny() {
+public class Recepcia extends Zamestnanec {
+    public Recepcia() {
         super("Dandy","recepcny");
     }
 

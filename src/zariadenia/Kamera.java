@@ -15,19 +15,24 @@ public class Kamera extends Zariadenie {
     }
 
     public void skontrolujDochodcov(ArrayList<Dochodca> dochodcovia) {
+        //nie su vytvoreny dochodcovia, nie je koho kontrolovat
         if (dochodcovia == null) {
             Starobinec.getInstance().vypisDoGUI("NIE SU VYTVORENY DOCHODCOVIA!");
             System.out.println("NIE SU VYTVORENY DOCHODCOVIA!");
         }
+        //ak dochodcovia existuju
         else {
             //skontroluj ci sa dochodca nachadza v DB
             skontrolujSpojeniesDB();
             for (Dochodca dochodca : dochodcovia) {
-                if (jeVzornomPoli(dochodca))
+                if (jeVzakazanejZone(dochodca))
                     if (skontrolujCiJevDB(dochodca))
                         System.out.println("Dochodca "+dochodca.getId()+" utiekol a JE aj v DB");
-                    else
+                        recepcia.zhorsiReputaciu(dochodca);
+                    else {
                         System.out.println("Dochodca "+dochodca.getId()+" utiekol ale NIE JE v DB");
+                        recepcia.skontrolujDochodcu(dochodca);
+                    }
             }
 
             //poslat alarm hlasenie recepcnemu, ci ho pozna
@@ -50,14 +55,14 @@ public class Kamera extends Zariadenie {
         else {
             for (Dochodca i : databaza) {
                 //pokial je dochodca je v databaze
-                if (jeVzornomPoli(i) && dochodca == i)
+                if (jeVzakazanejZone(i) && dochodca == i)
                     return true;
             }
             return false;
         }
     }
 
-    private boolean jeVzornomPoli(Dochodca dochodca) {
+    private boolean jeVzakazanejZone(Dochodca dochodca) {
         return dochodca.getX() > hranicaX || dochodca.getY() > hranicaY;
     }
 
