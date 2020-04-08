@@ -5,7 +5,6 @@ import main.Starobinec;
 
 import java.util.ArrayList;
 import java.util.Timer;
-import java.util.TimerTask;
 
 public class Dochodca {
     private int x, y, id;
@@ -13,16 +12,18 @@ public class Dochodca {
     private String meno;
     private static int pocDochodcov = 0;
     private static ArrayList<Dochodca> dochodcovia = new ArrayList<>();
+    private Starobinec starobinec;
     private static StarobinecGUI GUIko;
     private static final int cas = 15;
     private static Timer timer = null;
 
-    public Dochodca() {
+    public Dochodca(Starobinec starobinec) {
         this.meno = "Jozko";
         this.x = getRandomNumberInRange(1, 100);
         this.y = getRandomNumberInRange(1, 100);
         this.id = pocDochodcov++;
-        this.ziskajGUI();
+        this.starobinec = starobinec;
+        //this.ziskajGUI();
         /*if(!naplanovanyUtek)
             this.naplanujUtek();*/
     }
@@ -69,13 +70,13 @@ public class Dochodca {
     }
 
     private void utec() {
-        this.x = getRandomNumberInRange(200, 500); //neskorej sem daj 100 - 500
-        this.y = getRandomNumberInRange(200, 500); //neskorej sem daj 100 - 500
+        this.x = getRandomNumberInRange(100, 500); //neskorej sem daj 100 - 500
+        this.y = getRandomNumberInRange(100, 500); //neskorej sem daj 100 - 500
 
         String sprava;
         sprava = "Dochodca "+this.id+" zmnenil poziciu na ["+this.x+","+this.y+"]";
         System.out.println(sprava);
-        GUIko.vypis(sprava);
+        starobinec.vypisDoGUI(sprava);
     }
 
     public void vypniCasovac() {

@@ -3,7 +3,7 @@ package main;
 import gui.StarobinecGUI;
 import ludia.Dochodca;
 import ludia.Manazer;
-import ludia.Recepcia;
+import ludia.Recepcny;
 import ludia.Zamestnanec;
 import zariadenia.Kamera;
 import zariadenia.Senzor;
@@ -22,14 +22,14 @@ public class Starobinec {
     private int cas = 0;
     private StarobinecGUI GUIko;
     private Timer timer = null;
+    private Recepcny recepcny;
 
-    private Starobinec() {
-        vytvorZariadenia();
+    public Starobinec() {
+        starobinec = this;
+        vytvorSa(this);
     }
 
     public static Starobinec getInstance() {
-        if(starobinec == null)
-            starobinec = new Starobinec();
         return starobinec;
     }
 
@@ -41,14 +41,13 @@ public class Starobinec {
         return this.GUIko;
     }
 
-    private void vytvorZariadenia() {
-        zariadenia.add(new Kamera());
-        zariadenia.add(new Senzor());
-    }
-
-    public void vytvorZamestnancov() {
-        zamestnanci.add(new Recepcia());
+    private void vytvorSa(Starobinec starobinec) {
+        recepcny = new Recepcny(starobinec);
+        zamestnanci.add(recepcny);
         zamestnanci.add(new Manazer());
+
+        zariadenia.add(new Kamera(Starobinec.starobinec, recepcny));
+        zariadenia.add(new Senzor(Starobinec.starobinec, recepcny));
     }
 
     public String predstavZamestnancov() {
@@ -60,11 +59,11 @@ public class Starobinec {
     }
 
     public void vytvorDochodcov(int pocet) {
-        Dochodca dochodca1 = new Dochodca();
+        Dochodca dochodca1 = new Dochodca(starobinec);
         dochodcovia = dochodca1.getDochodcovia();
         dochodcovia.add(dochodca1);
         for (int i = 1; i < pocet; ++i)
-            dochodcovia.add(new Dochodca());
+            dochodcovia.add(new Dochodca(starobinec));
         dochodca1.naplanujUtek();
     }
 
@@ -104,9 +103,10 @@ public class Starobinec {
     }
 
     public void vykonajKontrolu() {
-        new Kamera().skontrolujDochodcov(dochodcovia);
-        /*for (int j = 0; j < zariadenia.size(); ++j)
-            zariadenia.get(j).skontrolujDochodcov(dochodcovia);*/
+        //new Kamera(starobinec, recepcny).skontrolujDochodcov(dochodcovia);
+        //new Senzor(starobinec, recepcny).skontrolujDochodcov(dochodcovia);
+        for (int j = 0; j < zariadenia.size(); ++j)
+            zariadenia.get(j).skontrolujDochodcov(dochodcovia);
         //String s = "Kamery a senzory skontrolovane";
         //GUIko.vypis(s);
     }

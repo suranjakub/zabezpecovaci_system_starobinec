@@ -15,7 +15,7 @@ import main.Starobinec;
 public class StarobinecGUI extends Application {
     //private static StarobinecGUI instancia;
     private Starobinec starobinec;
-    private Button vytvorZamestnancov = new Button("Vytvor zamestnancov");
+    private Button predstavZamestnancov = new Button("Predstav zamestnancov");
     private Button vytvorDochodcov = new Button("Vytvor dochodcov");
     private Button spustiZabezpecenie = new Button("Spusti zabezpecovaci system");
     private TextField dochodci = new TextField();
@@ -45,10 +45,10 @@ public class StarobinecGUI extends Application {
         hlavneOkno.setTitle("Starobinec");
 
         FlowPane pane = new FlowPane();
-        starobinec = Starobinec.getInstance();
+        starobinec = new Starobinec();
         starobinec.setGUI(this);
 
-        pane.getChildren().add(vytvorZamestnancov);
+        pane.getChildren().add(predstavZamestnancov);
         pane.getChildren().add(dochodciOzn);
         pane.getChildren().add(dochodci);
         pane.getChildren().add(vypis);
@@ -58,8 +58,7 @@ public class StarobinecGUI extends Application {
 
         skrol.setContent(pane);
 
-        vytvorZamestnancov.setOnAction(e -> {
-                starobinec.vytvorZamestnancov();
+        predstavZamestnancov.setOnAction(e -> {
                 vypis.appendText(starobinec.predstavZamestnancov());
             }
         );

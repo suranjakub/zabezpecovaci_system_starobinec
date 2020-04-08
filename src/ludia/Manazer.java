@@ -6,7 +6,7 @@ public class Manazer extends Zamestnanec{
     }
 
     @Override
-    public void skontrRecepciu() {
+    public void skontroluj(int x, int y) {
 
     }
 }

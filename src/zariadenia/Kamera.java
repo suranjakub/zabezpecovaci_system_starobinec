@@ -1,6 +1,7 @@
 package zariadenia;
 
 import ludia.Dochodca;
+import ludia.Recepcny;
 import main.Starobinec;
 
 import java.util.ArrayList;
@@ -9,9 +10,16 @@ public class Kamera extends Zariadenie {
     private static ArrayList<Dochodca> databaza;
     private static final int hranicaX = 250, hranicaY = 250;
     private Starobinec starobinec;
+    private Recepcny recepcny;
 
     public Kamera() {
         predstavSa();
+    }
+
+    public Kamera(Starobinec starobinec, Recepcny recepcny) {
+        predstavSa();
+        this.starobinec = starobinec;
+        this.recepcny = recepcny;
     }
 
     public void skontrolujDochodcov(ArrayList<Dochodca> dochodcovia) {
@@ -26,12 +34,17 @@ public class Kamera extends Zariadenie {
             skontrolujSpojeniesDB();
             for (Dochodca dochodca : dochodcovia) {
                 if (jeVzakazanejZone(dochodca))
-                    if (skontrolujCiJevDB(dochodca))
-                        System.out.println("Dochodca "+dochodca.getId()+" utiekol a JE aj v DB");
-                        recepcia.zhorsiReputaciu(dochodca);
+                    if (skontrolujCiJevDB(dochodca)) {
+                        //recepcny.zhorsiReputaciu(dochodca);
+                        String s = "Dochodca "+dochodca.getId()+" utiekol a JE aj v DB";
+                        System.out.println(s);
+                        starobinec.vypisDoGUI(s);
+                    }
                     else {
-                        System.out.println("Dochodca "+dochodca.getId()+" utiekol ale NIE JE v DB");
-                        recepcia.skontrolujDochodcu(dochodca);
+                        String s = "Dochodca "+dochodca.getId()+" utiekol ale NIE JE v DB";
+                        System.out.println(s);
+                        starobinec.vypisDoGUI(s);
+                        recepcny.skontroluj(dochodca);
                     }
             }
 
@@ -62,7 +75,7 @@ public class Kamera extends Zariadenie {
         }
     }
 
-    private boolean jeVzakazanejZone(Dochodca dochodca) {
+    public boolean jeVzakazanejZone(Dochodca dochodca) {
         return dochodca.getX() > hranicaX || dochodca.getY() > hranicaY;
     }
 

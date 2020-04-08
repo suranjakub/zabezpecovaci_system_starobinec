@@ -14,8 +14,8 @@ public abstract class Zamestnanec {
     }
     public String predstavSa() {
         String newLine = System.getProperty("line.separator");
-        String s = "Vytvoreny " + this.typ + " " + this.meno + newLine;
+        String s = "Predstaveny " + this.typ + " " + this.meno + newLine;
         return s;
     }
-    public abstract void skontrRecepciu();
+    public abstract void skontroluj(int x, int y);
 }

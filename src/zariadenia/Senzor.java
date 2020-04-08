@@ -1,14 +1,23 @@
 package zariadenia;
 
 import ludia.Dochodca;
+import ludia.Recepcny;
 import main.Starobinec;
 
 import java.util.ArrayList;
 
 public class Senzor extends Zariadenie {
+    private Recepcny recepcny;
+    private Starobinec starobinec;
 
     public Senzor() {
         predstavSa();
+    }
+
+    public Senzor(Starobinec starobinec, Recepcny recepcny) {
+        predstavSa();
+        this.starobinec = starobinec;
+        this.recepcny = recepcny;
     }
 
     public void skontrolujDochodcov(ArrayList<Dochodca> dochodcovia) {
@@ -21,17 +30,19 @@ public class Senzor extends Zariadenie {
         }
         else {
             for (Dochodca dochodca : dochodcovia) {
-                jeVzakazanejZone(dochodca);
-                int x = dochodca.getX();
-                int y = dochodca.getY();
-                recepcia.skontrolujZonu(x, y);
+                if (jeVzakazanejZone(dochodca)) {
+                    int x = dochodca.getX();
+                    int y = dochodca.getY();
+                    String s = "Senzor zachytil pohyb v zone ["+x+","+y+"]";
+                    System.out.println(s);
+                    recepcny.skontroluj(x, y);
+                }
             }
         }
-
-        System.out.println("Senzor skontrolovany");
+        //System.out.println("Senzor skontrolovany");
     }
 
-    private boolean jeVzakazanejZone(Dochodca dochodca) {
+    public boolean jeVzakazanejZone(Dochodca dochodca) {
         int x = dochodca.getX();
         int y = dochodca.getY();
         return x > 150 && x < 250 || y > 150 && y < 250;
