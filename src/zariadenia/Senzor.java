@@ -35,7 +35,7 @@ public class Senzor extends Zariadenie {
                     int y = dochodca.getY();
                     String s = "Senzor zachytil pohyb v zone ["+x+","+y+"]";
                     System.out.println(s);
-                    recepcny.skontroluj(x, y);
+                    recepcny.skontroluj(x, y, dochodca);
                 }
             }
         }

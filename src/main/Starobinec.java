@@ -23,6 +23,7 @@ public class Starobinec {
     private StarobinecGUI GUIko;
     private Timer timer = null;
     private Recepcny recepcny;
+    private Manazer manazer;
 
     public Starobinec() {
         starobinec = this;
@@ -42,9 +43,10 @@ public class Starobinec {
     }
 
     private void vytvorSa(Starobinec starobinec) {
-        recepcny = new Recepcny(starobinec);
+        manazer = new Manazer(starobinec);
+        recepcny = new Recepcny(starobinec, manazer);
         zamestnanci.add(recepcny);
-        zamestnanci.add(new Manazer());
+        zamestnanci.add(manazer);
 
         zariadenia.add(new Kamera(Starobinec.starobinec, recepcny));
         zariadenia.add(new Senzor(Starobinec.starobinec, recepcny));
@@ -86,7 +88,7 @@ public class Starobinec {
                         vykonajKontrolu();
                         //System.out.println("Vykonavam kontrolu");
                         //reset timer
-                        starobinec.cas = 10;
+                        starobinec.cas = 15;
                     }
                     //System.out.println("Cas: " + i);
                     starobinec.cas--;
@@ -116,11 +118,17 @@ public class Starobinec {
     }
 
     public void pridajDoDB(Dochodca dochodca) {
+        if (dbUtecencov == null)
+            dbUtecencov = new ArrayList<>();
         dbUtecencov.add(dochodca);
         System.out.println("Dochodca "+dochodca.getId()+" pridany do databazy");
     }
 
     public void vypisDoGUI(String s) {
         GUIko.vypis(s);
+    }
+
+    public void zmazDochodcu(Dochodca dochodca) {
+        dochodcovia.remove(dochodca);
     }
 }

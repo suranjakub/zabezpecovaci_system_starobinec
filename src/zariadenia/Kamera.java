@@ -35,8 +35,9 @@ public class Kamera extends Zariadenie {
             for (Dochodca dochodca : dochodcovia) {
                 if (jeVzakazanejZone(dochodca))
                     if (skontrolujCiJevDB(dochodca)) {
-                        //recepcny.zhorsiReputaciu(dochodca);
                         String s = "Dochodca "+dochodca.getId()+" utiekol a JE aj v DB";
+                        //teraz vyhadzujem dochodcu, ale nemozem modifikovat array lebo som v cykle;
+                        recepcny.spracujZleho(dochodca);
                         System.out.println(s);
                         starobinec.vypisDoGUI(s);
                     }
@@ -44,7 +45,8 @@ public class Kamera extends Zariadenie {
                         String s = "Dochodca "+dochodca.getId()+" utiekol ale NIE JE v DB";
                         System.out.println(s);
                         starobinec.vypisDoGUI(s);
-                        recepcny.skontroluj(dochodca);
+                        if(recepcny.skontroluj(dochodca))
+                            starobinec.pridajDoDB(dochodca);
                     }
             }
 

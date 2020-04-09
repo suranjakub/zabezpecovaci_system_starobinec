@@ -17,5 +17,4 @@ public abstract class Zamestnanec {
         String s = "Predstaveny " + this.typ + " " + this.meno + newLine;
         return s;
     }
-    public abstract void skontroluj(int x, int y);
 }

@@ -16,6 +16,7 @@ public class Dochodca {
     private static StarobinecGUI GUIko;
     private static final int cas = 15;
     private static Timer timer = null;
+    private int pocUteceni;
 
     public Dochodca(Starobinec starobinec) {
         this.meno = "Jozko";
@@ -23,6 +24,7 @@ public class Dochodca {
         this.y = getRandomNumberInRange(1, 100);
         this.id = pocDochodcov++;
         this.starobinec = starobinec;
+        this.pocUteceni = 0;
         //this.ziskajGUI();
         /*if(!naplanovanyUtek)
             this.naplanujUtek();*/
@@ -70,8 +72,14 @@ public class Dochodca {
     }
 
     private void utec() {
-        this.x = getRandomNumberInRange(100, 500); //neskorej sem daj 100 - 500
-        this.y = getRandomNumberInRange(100, 500); //neskorej sem daj 100 - 500
+        //este nie je iste, ze utecie, nemusi sa dostat do zakazanej zony
+        this.x = getRandomNumberInRange(0, 500); //neskorej sem daj 100 - 500
+        if(x > 250)
+            this.y = getRandomNumberInRange(250, 500); //neskorej sem daj 100 - 500
+        else if(x > 150)
+            this.y = getRandomNumberInRange(0, 250);
+        else
+            this.y = getRandomNumberInRange(0, 150);
 
         String sprava;
         sprava = "Dochodca "+this.id+" zmnenil poziciu na ["+this.x+","+this.y+"]";
@@ -82,5 +90,9 @@ public class Dochodca {
     public void vypniCasovac() {
         if (timer != null)
             timer.cancel();;
+    }
+
+    public int getPocUteceni() {
+        return this.pocUteceni;
     }
 }
