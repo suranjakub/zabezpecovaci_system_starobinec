@@ -21,6 +21,8 @@ public class Senzor extends Zariadenie {
     }
 
     public void skontrolujDochodcov(ArrayList<Dochodca> dochodcovia) {
+        ArrayList<Dochodca> zlyDochodcovia = new ArrayList<>();
+
         int pocUtecenych = 0;
         //ak zisti pohyb, posle x, y suradnice recepcnemu
         //ten potom musi overit ci sa jedna o falosny poplach

@@ -38,7 +38,8 @@ public class Kamera extends Zariadenie {
             for (Dochodca dochodca : dochodcovia) {
                 if (jeVzakazanejZone(dochodca))
                     if (skontrolujCiJevDB(dochodca)) {
-                        String s = "Dochodca "+dochodca.getId()+" utiekol a JE aj v DB";
+                        //String s = "Dochodca "+dochodca.getId()+" utiekol a JE aj v DB";
+                        String s = "Kamera zaznamenala uteceneho dochodcu a JE aj v DB";
                         //teraz vyhadzujem dochodcu, ale nemozem modifikovat array lebo som v cykle;
                         //recepcny.spracujZleho(dochodca);
                         chronickyUtecenci.add(dochodca);
@@ -46,7 +47,8 @@ public class Kamera extends Zariadenie {
                         starobinec.vypisDoGUI(s);
                     }
                     else {
-                        String s = "Dochodca "+dochodca.getId()+" utiekol ale NIE JE v DB";
+                        //String s = "Dochodca "+dochodca.getId()+" utiekol ale NIE JE v DB";
+                        String s = "Kamera zaznamenala poplach v zone ["+dochodca.getX()+","+dochodca.getY()+"]";
                         System.out.println(s);
                         starobinec.vypisDoGUI(s);
                         if(recepcny.skontroluj(dochodca)) {

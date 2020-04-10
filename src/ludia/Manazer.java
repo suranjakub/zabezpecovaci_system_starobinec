@@ -26,4 +26,14 @@ public class Manazer extends Zamestnanec{
             starobinec.vypisDoGUI("MANAZER VYHODIL DOCHODCU "+utecenec.getId());
         }
     }
+
+    public void pokarhaj(Dochodca dochodca) {
+        dochodca.zvysPocUteceni();
+        starobinec.vypisDoGUI("MANAZER POKARHAL DOCHODCU "+dochodca.getId());
+    }
+
+    public void vyhod(Dochodca dochodca) {
+        starobinec.zmazDochodcu(dochodca);
+        starobinec.vypisDoGUI("MANAZER VYHODIL DOCHODCU "+dochodca.getId());
+    }
 }

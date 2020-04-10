@@ -26,15 +26,22 @@ public class Recepcny extends Zamestnanec {
         manazer.vyhod(utecenci);
     }
 
-    public void skontroluj(int x, int y, Dochodca dochodca) {
+    public boolean skontroluj(int x, int y, Dochodca dochodca) {
         String s = "Recepcny dobehol na ["+x+","+y+"]";
-        if(Math.random() < 0.5)
+        if(Math.random() < 0.5) {
             s += ", bol to falosny poplach";
-        else {
+            starobinec.vypisDoGUI(s);
+            return false;
+        } else {
             //manazer.pokarhaj(dochodca);
-            s += ", dochodca bude pokarhany";
+            s += ", uteceny dochodca bude zavedeny k manazerovi";
+            starobinec.vypisDoGUI(s);
+            if(dochodca.getPocUteceni() < 2)
+                manazer.pokarhaj(dochodca);
+            else
+                manazer.vyhod(dochodca);
+            return true;
         }
-        starobinec.vypisDoGUI(s);
     }
 
     public boolean skontroluj(Dochodca dochodca) {

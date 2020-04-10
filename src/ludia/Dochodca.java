@@ -95,4 +95,8 @@ public class Dochodca {
     public int getPocUteceni() {
         return this.pocUteceni;
     }
+
+    public void zvysPocUteceni() {
+        this.pocUteceni++;
+    }
 }
