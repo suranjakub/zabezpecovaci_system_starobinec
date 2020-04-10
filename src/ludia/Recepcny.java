@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class Recepcny extends Zamestnanec {
     private Starobinec starobinec;
     private Manazer manazer;
+    private int poslednaKontrolaX, poslednaKontrolaY;
 
     public Recepcny() {
         super("Dundee","recepcny");
@@ -29,7 +30,13 @@ public class Recepcny extends Zamestnanec {
     public boolean skontroluj(int x, int y, Dochodca dochodca) {
         String s = "Recepcny dobehol na ["+x+","+y+"]";
         if(Math.random() < 0.5) {
-            s += ", bol to falosny poplach";
+            if (rovnakeMiestoAkoNaposledy(x, y))
+                s += ", dochodca sa pravdepodobne schoval";
+            else {
+                poslednaKontrolaX = x;
+                poslednaKontrolaY = y;
+                s += ", bol to falosny poplach";
+            }
             starobinec.vypisDoGUI(s);
             return false;
         } else {
@@ -42,6 +49,10 @@ public class Recepcny extends Zamestnanec {
                 manazer.vyhod(dochodca);
             return true;
         }
+    }
+
+    private boolean rovnakeMiestoAkoNaposledy(int x, int y) {
+        return (x == poslednaKontrolaX) && (y == poslednaKontrolaY);
     }
 
     public boolean skontroluj(Dochodca dochodca) {
