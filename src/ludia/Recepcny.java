@@ -2,6 +2,8 @@ package ludia;
 
 import main.Starobinec;
 
+import java.util.ArrayList;
+
 public class Recepcny extends Zamestnanec {
     private Starobinec starobinec;
     private Manazer manazer;
@@ -16,8 +18,12 @@ public class Recepcny extends Zamestnanec {
         this.manazer = manazer;
     }
 
-    public void spracujZleho(Dochodca dochodca) {
-        manazer.pokarhaj(dochodca, 1);
+    public void spracujZlych(ArrayList<Dochodca> zlyDochodcovia) {
+        manazer.pokarhaj(zlyDochodcovia);
+    }
+
+    public void spracujUtecencov(ArrayList<Dochodca> utecenci) {
+        manazer.vyhod(utecenci);
     }
 
     public void skontroluj(int x, int y, Dochodca dochodca) {
@@ -25,8 +31,8 @@ public class Recepcny extends Zamestnanec {
         if(Math.random() < 0.5)
             s += ", bol to falosny poplach";
         else {
-            manazer.pokarhaj(dochodca);
-            s += ", dochodca bol pokarhany";
+            //manazer.pokarhaj(dochodca);
+            s += ", dochodca bude pokarhany";
         }
         starobinec.vypisDoGUI(s);
     }

@@ -23,6 +23,9 @@ public class Kamera extends Zariadenie {
     }
 
     public void skontrolujDochodcov(ArrayList<Dochodca> dochodcovia) {
+        ArrayList<Dochodca> chronickyUtecenci = new ArrayList<>();
+        ArrayList<Dochodca> zlyDochodcovia = new ArrayList<>();
+
         //nie su vytvoreny dochodcovia, nie je koho kontrolovat
         if (dochodcovia == null) {
             Starobinec.getInstance().vypisDoGUI("NIE SU VYTVORENY DOCHODCOVIA!");
@@ -37,7 +40,8 @@ public class Kamera extends Zariadenie {
                     if (skontrolujCiJevDB(dochodca)) {
                         String s = "Dochodca "+dochodca.getId()+" utiekol a JE aj v DB";
                         //teraz vyhadzujem dochodcu, ale nemozem modifikovat array lebo som v cykle;
-                        recepcny.spracujZleho(dochodca);
+                        //recepcny.spracujZleho(dochodca);
+                        chronickyUtecenci.add(dochodca);
                         System.out.println(s);
                         starobinec.vypisDoGUI(s);
                     }
@@ -45,16 +49,24 @@ public class Kamera extends Zariadenie {
                         String s = "Dochodca "+dochodca.getId()+" utiekol ale NIE JE v DB";
                         System.out.println(s);
                         starobinec.vypisDoGUI(s);
-                        if(recepcny.skontroluj(dochodca))
-                            starobinec.pridajDoDB(dochodca);
+                        if(recepcny.skontroluj(dochodca)) {
+                            zlyDochodcovia.add(dochodca);
+                            //starobinec.pridajDoDB(dochodca);
+                        }
+
                     }
             }
+
+            recepcny.spracujZlych(zlyDochodcovia);
+            recepcny.spracujUtecencov(chronickyUtecenci);
 
             //poslat alarm hlasenie recepcnemu, ci ho pozna
             //ak to nebol falosny poplach, pridat dochodcu do DB,
             //zmenit mu flag - utecenec
 
-            System.out.println("Kamera skontrolovana");
+            if (zlyDochodcovia.isEmpty() && chronickyUtecenci.isEmpty()) {
+                System.out.println("Kamera skontrolovana - ziadny poplach");
+            }
         }
     }
 

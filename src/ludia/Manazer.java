@@ -2,6 +2,8 @@ package ludia;
 
 import main.Starobinec;
 
+import java.util.ArrayList;
+
 public class Manazer extends Zamestnanec{
     private Starobinec starobinec;
 
@@ -10,14 +12,18 @@ public class Manazer extends Zamestnanec{
         this.starobinec = starobinec;
     }
 
-    public void pokarhaj(Dochodca dochodca) {
-        starobinec.vypisDoGUI("MANAZER POKARHAL DOCHODCU "+dochodca.getId());
+    public void pokarhaj(ArrayList<Dochodca> zlyDochodci) {
+        for (Dochodca zlyDochodca :
+                zlyDochodci) {
+            starobinec.pridajDoDB(zlyDochodca);
+            starobinec.vypisDoGUI("MANAZER POKARHAL DOCHODCU "+zlyDochodca.getId());
+        }
     }
 
-    public void pokarhaj(Dochodca dochodca, int i) {
-        if (i == 1) {
-            starobinec.zmazDochodcu(dochodca);
-            starobinec.vypisDoGUI("MANAZER VYHODIL DOCHODCU");
+    public void vyhod(ArrayList<Dochodca> utecenci) {
+        for (Dochodca utecenec: utecenci) {
+            starobinec.zmazDochodcu(utecenec);
+            starobinec.vypisDoGUI("MANAZER VYHODIL DOCHODCU "+utecenec.getId());
         }
     }
 }

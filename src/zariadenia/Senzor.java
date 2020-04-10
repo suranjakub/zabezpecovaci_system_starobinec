@@ -21,6 +21,7 @@ public class Senzor extends Zariadenie {
     }
 
     public void skontrolujDochodcov(ArrayList<Dochodca> dochodcovia) {
+        int pocUtecenych = 0;
         //ak zisti pohyb, posle x, y suradnice recepcnemu
         //ten potom musi overit ci sa jedna o falosny poplach
 
@@ -31,6 +32,7 @@ public class Senzor extends Zariadenie {
         else {
             for (Dochodca dochodca : dochodcovia) {
                 if (jeVzakazanejZone(dochodca)) {
+                    pocUtecenych++;
                     int x = dochodca.getX();
                     int y = dochodca.getY();
                     String s = "Senzor zachytil pohyb v zone ["+x+","+y+"]";
@@ -39,7 +41,10 @@ public class Senzor extends Zariadenie {
                 }
             }
         }
-        //System.out.println("Senzor skontrolovany");
+
+        if (pocUtecenych == 0) {
+            System.out.println("Senzor skontrolovany - ziadny poplach");
+        }
     }
 
     public boolean jeVzakazanejZone(Dochodca dochodca) {
