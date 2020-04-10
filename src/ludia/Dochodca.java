@@ -76,8 +76,8 @@ public class Dochodca {
         this.x = getRandomNumberInRange(0, 500); //neskorej sem daj 100 - 500
         if(x > 250)
             this.y = getRandomNumberInRange(250, 500); //neskorej sem daj 100 - 500
-        else if(x > 150)
-            this.y = getRandomNumberInRange(0, 250);
+        else if(x < 250 && x > 150)
+            this.y = getRandomNumberInRange(150, 250);
         else
             this.y = getRandomNumberInRange(0, 150);
 
