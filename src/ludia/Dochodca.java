@@ -26,8 +26,8 @@ public class Dochodca {
         this.id = 1 + pocDochodcov++;
         this.starobinec = starobinec;
         this.pocUteceni = 0;
-        if(!naplanovanyUtek)
-            this.naplanujUtek();
+        /*if(!naplanovanyUtek)
+            this.naplanujUtek();*/
     }
 
     private static int getRandomNumberInRange(int min, int max) {
@@ -62,8 +62,8 @@ public class Dochodca {
                 if (!naplanovanyUtek) {
                     naplanovanyUtek = true;
                     //kazdych cas sekund random dochodca utecie
-                    //-2 preto lebo sa indexuje od 0 + pocDochodcov je o 1 vacsi
-                    int cislo = getRandomNumberInRange(0, pocDochodcov-2);
+                    int cislo = getRandomNumberInRange(0, pocDochodcov-1);
+                    System.out.println("Chysta sa utiect index "+cislo);
                     dochodcovia.get(cislo).utec();
                 }
             }
