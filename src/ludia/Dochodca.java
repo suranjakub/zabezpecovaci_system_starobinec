@@ -5,6 +5,7 @@ import main.Starobinec;
 
 import java.util.ArrayList;
 import java.util.Timer;
+import java.util.TimerTask;
 
 public class Dochodca {
     private int x, y, id;
@@ -14,7 +15,7 @@ public class Dochodca {
     private static ArrayList<Dochodca> dochodcovia = new ArrayList<>();
     private Starobinec starobinec;
     private static StarobinecGUI GUIko;
-    private static final int cas = 15;
+    private static final int cas = 12;
     private static Timer timer = null;
     private int pocUteceni;
 
@@ -22,12 +23,11 @@ public class Dochodca {
         this.meno = "Jozko";
         this.x = getRandomNumberInRange(1, 100);
         this.y = getRandomNumberInRange(1, 100);
-        this.id = pocDochodcov++;
+        this.id = 1 + pocDochodcov++;
         this.starobinec = starobinec;
         this.pocUteceni = 0;
-        //this.ziskajGUI();
-        /*if(!naplanovanyUtek)
-            this.naplanujUtek();*/
+        if(!naplanovanyUtek)
+            this.naplanujUtek();
     }
 
     private static int getRandomNumberInRange(int min, int max) {
@@ -50,25 +50,24 @@ public class Dochodca {
     }
 
     public void naplanujUtek() {
-        if(!naplanovanyUtek)
-            naplanovanyUtek = true;
-        int cislo = getRandomNumberInRange(0, pocDochodcov-1);
-        dochodcovia.get(cislo).utec();
-        /*//randomne sa vyberie, ktory dochodca utecie
+        /*if(!naplanovanyUtek)
+            naplanovanyUtek = true;*/
+        /*int cislo = getRandomNumberInRange(0, pocDochodcov-1);
+        dochodcovia.get(cislo).utec();*/
+        //randomne sa vyberie, ktory dochodca utecie
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                //kazdych cas sekund random dochodca utecie
-                int cislo = getRandomNumberInRange(0, pocDochodcov-1);
-                dochodcovia.get(cislo).utec();
+                if (!naplanovanyUtek) {
+                    naplanovanyUtek = true;
+                    //kazdych cas sekund random dochodca utecie
+                    //-2 preto lebo sa indexuje od 0 + pocDochodcov je o 1 vacsi
+                    int cislo = getRandomNumberInRange(0, pocDochodcov-2);
+                    dochodcovia.get(cislo).utec();
+                }
             }
-        }, cas*1000, cas*1000);*/
-    }
-
-    public void ziskajGUI() {
-        Starobinec starobinec = Starobinec.getInstance();
-        GUIko = starobinec.getGUI();
+        }, cas*1000, cas*1000);
     }
 
     private void prejdiDoZakazanejZony() {
@@ -111,9 +110,15 @@ public class Dochodca {
             this.x = getRandomNumberInRange(0, 150);
             this.y = getRandomNumberInRange(0, 150);
             starobinec.vypisDoGUI("Dochodca "+this.id+" sa vratil do povolenej zony");
+            zrusUtek();
         }
         else {
             prejdiDoZakazanejZony();
         }
+    }
+
+    public void zrusUtek() {
+        naplanovanyUtek = false;
+        System.out.println("Utek dochodcu "+this.id+" bol zruseny");
     }
 }

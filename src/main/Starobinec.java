@@ -66,7 +66,7 @@ public class Starobinec {
         dochodcovia.add(dochodca1);
         for (int i = 1; i < pocet; ++i)
             dochodcovia.add(new Dochodca(starobinec));
-        dochodca1.naplanujUtek();
+        //dochodca1.naplanujUtek();
     }
 
     public String predstavDochodcov() {

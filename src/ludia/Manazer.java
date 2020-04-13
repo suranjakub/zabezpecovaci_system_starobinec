@@ -27,6 +27,7 @@ public class Manazer extends Zamestnanec{
     public void vyhod(ArrayList<Dochodca> utecenci) {
         for (Dochodca utecenec: utecenci) {
             starobinec.zmazDochodcu(utecenec);
+            utecenec.zrusUtek();
             starobinec.vypisDoGUI("MANAZER VYHODIL DOCHODCU "+utecenec.getId());
         }
         //teraz mozeme vycistit zoznam, uz boli vyhodeny
