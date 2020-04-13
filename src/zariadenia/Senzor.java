@@ -37,16 +37,20 @@ public class Senzor extends Zariadenie {
                     pocUtecenych++;
                     int x = dochodca.getX();
                     int y = dochodca.getY();
-                    String s = "Senzor zachytil pohyb v zone ["+x+","+y+"]";
+                    String s = "\nSenzor zachytil pohyb v zone ["+x+","+y+"]";
                     starobinec.vypisDoGUI(s);
                     System.out.println(s);
                     recepcny.skontroluj(x, y, dochodca);
                 }
             }
+            //uz som skontroloval vsetkych, mozem ich spracovat
+            recepcny.spracujZlychaUtecencov();
         }
 
         if (pocUtecenych == 0) {
-            System.out.println("Senzor skontrolovany - ziadny poplach");
+            String s = "Senzory skontrolovane - ziadny poplach";
+            System.out.println(s);
+            starobinec.vypisDoGUI(s);
         }
     }
 

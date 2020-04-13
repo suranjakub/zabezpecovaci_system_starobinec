@@ -78,6 +78,8 @@ public class Starobinec {
     }
 
     public void spustiZabezpecenie() {
+        String s = "\nZabezpecovaci system aktivovany";
+        vypisDoGUI(s);
         timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override

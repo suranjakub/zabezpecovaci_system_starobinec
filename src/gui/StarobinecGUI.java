@@ -71,8 +71,6 @@ public class StarobinecGUI extends Application {
 
         spustiZabezpecenie.setOnAction(e -> {
                 starobinec.spustiZabezpecenie();
-                String s = "Zabecovaci system aktivovany" + System.lineSeparator();
-                vypis.appendText(s);
             }
         );
 

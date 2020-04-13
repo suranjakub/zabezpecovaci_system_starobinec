@@ -67,7 +67,9 @@ public class Kamera extends Zariadenie {
             //zmenit mu flag - utecenec
 
             if (zlyDochodcovia.isEmpty() && chronickyUtecenci.isEmpty()) {
-                System.out.println("Kamera skontrolovana - ziadny poplach");
+                String s = "\nKamery skontrolovane - ziadny poplach";
+                System.out.println(s);
+                starobinec.vypisDoGUI(s);
             }
         }
     }
