@@ -10,6 +10,7 @@ public class Recepcny extends Zamestnanec {
     private int poslednaKontrolaX, poslednaKontrolaY;
     private ArrayList<Dochodca> naVyhodenie = new ArrayList<>();
     private ArrayList<Dochodca> naPokarhanie = new ArrayList<>();
+    private Dochodca poslednaOsoba;
 
     public Recepcny() {
         super("Dundee","recepcny");
@@ -71,12 +72,17 @@ public class Recepcny extends Zamestnanec {
         return (x == poslednaKontrolaX) && (y == poslednaKontrolaY);
     }
 
+    private boolean rovnakaOsobaAkoNaposledy(Dochodca dochodca) {
+        return dochodca == poslednaOsoba;
+    }
+
     public boolean skontroluj(Dochodca dochodca) {
         String s = "Recepcny overil zaznam";
         // 30% sanca, ze ani recepcny nespozna
         // dochodcu podla poslaneho zaznamu z kamery
-        if(Math.random() < 0.3) {
+        if(Math.random() < 0.3 && !rovnakaOsobaAkoNaposledy(dochodca)) {
             s += ", nebol to dochodca";
+            poslednaOsoba = dochodca;
             starobinec.vypisDoGUI(s);
             return false;
         } else {

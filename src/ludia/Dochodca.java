@@ -71,9 +71,9 @@ public class Dochodca {
     }
 
     private void prejdiDoZakazanejZony() {
-        this.x = getRandomNumberInRange(250, 500); //neskorej sem daj 100 - 500
+        this.x = getRandomNumberInRange(150, 500);
         if(x > 250)
-            this.y = getRandomNumberInRange(250, 500); //neskorej sem daj 100 - 500
+            this.y = getRandomNumberInRange(250, 500);
         else if(x < 250 && x > 150)
             this.y = getRandomNumberInRange(150, 250);
         else
