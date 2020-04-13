@@ -17,7 +17,7 @@ public class Starobinec {
     private static Starobinec starobinec = null;
     private ArrayList<Zamestnanec> zamestnanci = new ArrayList<>();
     private ArrayList<Dochodca> dochodcovia = null;
-    private ArrayList<Dochodca> dbUtecencov = null;
+    private ArrayList<Dochodca> dbUtecencov = new ArrayList<>();
     private ArrayList<Zariadenie> zariadenia = new ArrayList<>();
     private int cas = 0;
     private StarobinecGUI GUIko;

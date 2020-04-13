@@ -72,8 +72,10 @@ public class Recepcny extends Zamestnanec {
     }
 
     public boolean skontroluj(Dochodca dochodca) {
-        String s = "Recepcny overil poplach";
-        if(Math.random() < 0.5) {
+        String s = "Recepcny overil zaznam";
+        // 30% sanca, ze ani recepcny nespozna
+        // dochodcu podla poslaneho zaznamu z kamery
+        if(Math.random() < 0.3) {
             s += ", nebol to dochodca";
             starobinec.vypisDoGUI(s);
             return false;

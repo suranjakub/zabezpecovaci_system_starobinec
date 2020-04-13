@@ -26,6 +26,8 @@ public class Kamera extends Zariadenie {
         ArrayList<Dochodca> chronickyUtecenci = new ArrayList<>();
         ArrayList<Dochodca> zlyDochodcovia = new ArrayList<>();
 
+        int pocUtecenych = 0;
+
         //nie su vytvoreny dochodcovia, nie je koho kontrolovat
         if (dochodcovia == null) {
             Starobinec.getInstance().vypisDoGUI("NIE SU VYTVORENY DOCHODCOVIA!");
@@ -39,20 +41,26 @@ public class Kamera extends Zariadenie {
                 if (jeVzakazanejZone(dochodca))
                     if (skontrolujCiJevDB(dochodca)) {
                         //String s = "Dochodca "+dochodca.getId()+" utiekol a JE aj v DB";
-                        String s = "Kamera zaznamenala uteceneho dochodcu a JE aj v DB";
+                        String s = "\nKamera zaznamenala uteceneho dochodcu a JE aj v DB";
                         //teraz vyhadzujem dochodcu, ale nemozem modifikovat array lebo som v cykle;
                         //recepcny.spracujZleho(dochodca);
                         chronickyUtecenci.add(dochodca);
+                        pocUtecenych++;
                         System.out.println(s);
                         starobinec.vypisDoGUI(s);
                     }
                     else {
                         //String s = "Dochodca "+dochodca.getId()+" utiekol ale NIE JE v DB";
-                        String s = "Kamera zaznamenala poplach v zone ["+dochodca.getX()+","+dochodca.getY()+"]";
+                        String s = "\nKamera zaznamenala poplach v zone ["+dochodca.getX()+","+dochodca.getY()+"]";
                         System.out.println(s);
                         starobinec.vypisDoGUI(s);
                         if(recepcny.skontroluj(dochodca)) {
+                            if(databaza == null)
+                                System.out.println("databaza: "+databaza);
+                            else
+                                databaza.add(dochodca);
                             zlyDochodcovia.add(dochodca);
+                            pocUtecenych++;
                             //starobinec.pridajDoDB(dochodca);
                         }
 
@@ -66,7 +74,7 @@ public class Kamera extends Zariadenie {
             //ak to nebol falosny poplach, pridat dochodcu do DB,
             //zmenit mu flag - utecenec
 
-            if (zlyDochodcovia.isEmpty() && chronickyUtecenci.isEmpty()) {
+            if (pocUtecenych == 0) {
                 String s = "\nKamery skontrolovane - ziadny poplach";
                 System.out.println(s);
                 starobinec.vypisDoGUI(s);
@@ -76,7 +84,7 @@ public class Kamera extends Zariadenie {
 
     private void skontrolujSpojeniesDB() {
         if (databaza == null)
-            databaza = Starobinec.getInstance().getDB();
+            databaza = starobinec.getDB();
     }
 
     public boolean skontrolujCiJevDB(Dochodca dochodca) {

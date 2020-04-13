@@ -73,7 +73,7 @@ public class Dochodca {
 
     private void utec() {
         //este nie je iste, ze utecie, nemusi sa dostat do zakazanej zony
-        this.x = getRandomNumberInRange(150, 250); //neskorej sem daj 100 - 500
+        this.x = getRandomNumberInRange(250, 500); //neskorej sem daj 100 - 500
         if(x > 250)
             this.y = getRandomNumberInRange(250, 500); //neskorej sem daj 100 - 500
         else if(x < 250 && x > 150)
