@@ -55,10 +55,7 @@ public class Kamera extends Zariadenie {
                         System.out.println(s);
                         starobinec.vypisDoGUI(s);
                         if(recepcny.skontroluj(dochodca)) {
-                            if(databaza == null)
-                                System.out.println("databaza: "+databaza);
-                            else
-                                databaza.add(dochodca);
+                            databaza.add(dochodca);
                             zlyDochodcovia.add(dochodca);
                             pocUtecenych++;
                             //starobinec.pridajDoDB(dochodca);

@@ -71,8 +71,7 @@ public class Dochodca {
         GUIko = starobinec.getGUI();
     }
 
-    private void utec() {
-        //este nie je iste, ze utecie, nemusi sa dostat do zakazanej zony
+    private void prejdiDoZakazanejZony() {
         this.x = getRandomNumberInRange(250, 500); //neskorej sem daj 100 - 500
         if(x > 250)
             this.y = getRandomNumberInRange(250, 500); //neskorej sem daj 100 - 500
@@ -87,6 +86,11 @@ public class Dochodca {
         starobinec.vypisDoGUI(sprava);
     }
 
+    private void utec() {
+        //este nie je iste, ze utecie, nemusi sa dostat do zakazanej zony
+        prejdiDoZakazanejZony();
+    }
+
     public void vypniCasovac() {
         if (timer != null)
             timer.cancel();;
@@ -98,5 +102,18 @@ public class Dochodca {
 
     public void zvysPocUteceni() {
         this.pocUteceni++;
+    }
+
+    public void reagujNaPokarhanie() {
+        if(Math.random() < 0.35) {
+            // rozmyslel som si to, uz nebudem utekat
+            // dochodca prejde do povolenej zony
+            this.x = getRandomNumberInRange(0, 150);
+            this.y = getRandomNumberInRange(0, 150);
+            starobinec.vypisDoGUI("Dochodca "+this.id+" sa vratil do povolenej zony");
+        }
+        else {
+            prejdiDoZakazanejZony();
+        }
     }
 }

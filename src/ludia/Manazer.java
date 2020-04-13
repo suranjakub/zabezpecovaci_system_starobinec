@@ -18,6 +18,7 @@ public class Manazer extends Zamestnanec{
             zlyDochodca.zvysPocUteceni();
             //starobinec.pridajDoDB(zlyDochodca);
             starobinec.vypisDoGUI("MANAZER POKARHAL DOCHODCU "+zlyDochodca.getId());
+            zlyDochodca.reagujNaPokarhanie();
         }
         //teraz mozeme vycistit zoznam, uz boli pokarhani
         zlyDochodci.clear();
@@ -32,7 +33,7 @@ public class Manazer extends Zamestnanec{
         utecenci.clear();
     }
 
-    public void pokarhaj(Dochodca dochodca) {
+    /*public void pokarhaj(Dochodca dochodca) {
         dochodca.zvysPocUteceni();
         starobinec.vypisDoGUI("MANAZER POKARHAL DOCHODCU "+dochodca.getId());
         System.out.println("Pocet uteceni dochodcu "+dochodca.getId()+" je "+dochodca.getPocUteceni());
@@ -41,5 +42,5 @@ public class Manazer extends Zamestnanec{
     public void vyhod(Dochodca dochodca) {
         starobinec.zmazDochodcu(dochodca);
         starobinec.vypisDoGUI("MANAZER VYHODIL DOCHODCU "+dochodca.getId());
-    }
+    }*/
 }
