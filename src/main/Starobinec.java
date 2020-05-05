@@ -1,6 +1,8 @@
 package main;
 
 import gui.StarobinecGUI;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
 import ludia.Dochodca;
 import ludia.Manazer;
 import ludia.Recepcny;
@@ -9,30 +11,39 @@ import zariadenia.Kamera;
 import zariadenia.Senzor;
 import zariadenia.Zariadenie;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Starobinec {
-    private static Starobinec starobinec = null;
+public class Starobinec implements Serializable {
+    //private static Starobinec starobinec = null;
     private ArrayList<Zamestnanec> zamestnanci = new ArrayList<>();
     private ArrayList<Dochodca> dochodcovia = null;
     private ArrayList<Dochodca> dbUtecencov = new ArrayList<>();
     private ArrayList<Zariadenie> zariadenia = new ArrayList<>();
     private int cas = 0;
-    private StarobinecGUI GUIko;
-    private Timer timer = null;
+    private transient StarobinecGUI GUIko; //neulozi sa to do suboru, ked sa uklada starobinec
+    private transient Timer timer = null;
     private Recepcny recepcny;
     private Manazer manazer;
 
     public Starobinec() {
-        starobinec = this;
-        vytvorSa(this);
+        //starobinec = this;
+        vytvorSa();
     }
 
-    public static Starobinec getInstance() {
-        return starobinec;
+    public int getPocDochodcovia() {
+        return dochodcovia.size();
     }
+
+    public ArrayList<Dochodca> getDochodcovia () {
+        return this.dochodcovia;
+    }
+
+    /*public static Starobinec getInstance() {
+        return starobinec;
+    }*/
 
     public void setGUI(StarobinecGUI referencia) {
         this.GUIko = referencia;
@@ -42,14 +53,14 @@ public class Starobinec {
         return this.GUIko;
     }
 
-    private void vytvorSa(Starobinec starobinec) {
-        manazer = new Manazer(starobinec);
-        recepcny = new Recepcny(starobinec, manazer);
+    private void vytvorSa() {
+        manazer = new Manazer(this);
+        recepcny = new Recepcny(this, manazer);
         zamestnanci.add(recepcny);
         zamestnanci.add(manazer);
 
-        zariadenia.add(new Kamera(Starobinec.starobinec, recepcny));
-        zariadenia.add(new Senzor(Starobinec.starobinec, recepcny));
+        zariadenia.add(new Kamera(this, recepcny));
+        zariadenia.add(new Senzor(this, recepcny));
     }
 
     public String predstavZamestnancov() {
@@ -61,11 +72,11 @@ public class Starobinec {
     }
 
     public void vytvorDochodcov(int pocet) {
-        Dochodca dochodca1 = new Dochodca(starobinec);
+        Dochodca dochodca1 = new Dochodca(this);
         dochodcovia = dochodca1.getDochodcovia();
         dochodcovia.add(dochodca1);
         for (int i = 1; i < pocet; ++i)
-            dochodcovia.add(new Dochodca(starobinec));
+            dochodcovia.add(new Dochodca(this));
         dochodca1.naplanujUtek();
     }
 
@@ -85,15 +96,25 @@ public class Starobinec {
             @Override
             public void run() {
                 synchronized (Starobinec.class) {
-                    GUIko.vypisCas(starobinec.cas);
-                    if(starobinec.cas == 0) {
-                        vykonajKontrolu();
+                    //System.out.println(GUIko);
+                    GUIko.vypisCas(cas);
+                    if(cas == 0) {
+                        try {
+                            vykonajKontrolu();
+                        } catch (NonDochodcaException e) {
+                            timer.cancel();
+                            Platform.runLater(() -> {
+                                Alert chyba = new Alert(Alert.AlertType.ERROR);
+                                chyba.setContentText(e.getMessage());
+                                chyba.showAndWait();
+                            });
+                        }
                         //System.out.println("Vykonavam kontrolu");
                         //reset timer
-                        starobinec.cas = 15;
+                        cas = 15;
                     }
                     //System.out.println("Cas: " + i);
-                    starobinec.cas--;
+                    cas--;
                 }
             }
         }, 1000, 1000);
@@ -106,7 +127,7 @@ public class Starobinec {
             dochodcovia.get(0).vypniCasovac();
     }
 
-    public void vykonajKontrolu() {
+    public void vykonajKontrolu() throws NonDochodcaException {
         //new Kamera(starobinec, recepcny).skontrolujDochodcov(dochodcovia);
         //new Senzor(starobinec, recepcny).skontrolujDochodcov(dochodcovia);
         for (int j = 0; j < zariadenia.size(); ++j)

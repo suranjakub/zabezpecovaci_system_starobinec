@@ -1,16 +1,55 @@
 package ludia;
 
+import kontroly.TypKontroly;
 import main.Starobinec;
 
+import javax.print.Doc;
 import java.util.ArrayList;
 
 public class Recepcny extends Zamestnanec {
     private Starobinec starobinec;
     private Manazer manazer;
-    private int poslednaKontrolaX, poslednaKontrolaY;
+    private int poslednaKontrolaX;
+    private int poslednaKontrolaY;
     private ArrayList<Dochodca> naVyhodenie = new ArrayList<>();
     private ArrayList<Dochodca> naPokarhanie = new ArrayList<>();
     private Dochodca poslednaOsoba;
+
+    public Dochodca getPoslednaOsoba() {
+        return poslednaOsoba;
+    }
+
+    public Starobinec getStarobinec() {
+        return starobinec;
+    }
+
+    public ArrayList<Dochodca> getNaVyhodenie() {
+        return naVyhodenie;
+    }
+
+    public ArrayList<Dochodca> getNaPokarhanie() {
+        return  naPokarhanie;
+    }
+
+    public void setPoslednaOsoba(Dochodca poslednaOsoba) {
+        this.poslednaOsoba = poslednaOsoba;
+    }
+
+    public int getPoslednaKontrolaX() {
+        return poslednaKontrolaX;
+    }
+
+    public int getPoslednaKontrolaY() {
+        return poslednaKontrolaY;
+    }
+
+    public void setPoslednaKontrolaX(int poslednaKontrolaX) {
+        this.poslednaKontrolaX = poslednaKontrolaX;
+    }
+
+    public void setPoslednaKontrolaY(int poslednaKontrolaY) {
+        this.poslednaKontrolaY = poslednaKontrolaY;
+    }
 
     public Recepcny() {
         super("Dundee","recepcny");
@@ -37,7 +76,11 @@ public class Recepcny extends Zamestnanec {
         manazer.vyhod(utecenci);
     }
 
-    public boolean skontroluj(int x, int y, Dochodca dochodca) {
+    public boolean skontroluj(TypKontroly typKontroly, Dochodca dochodca) {
+        return typKontroly.skontroluj(dochodca);
+    }
+
+    /*public boolean skontroluj(int x, int y, Dochodca dochodca) {
         String s = "Recepcny dobehol na ["+x+","+y+"]";
         //sanca 30 ku 70, ze sa dochodca schova
         if(Math.random() < 0.3) {
@@ -66,17 +109,17 @@ public class Recepcny extends Zamestnanec {
                 //manazer.vyhod(dochodca);
             return true;
         }
-    }
+    }*/
 
-    private boolean rovnakeMiestoAkoNaposledy(int x, int y) {
+    /*private boolean rovnakeMiestoAkoNaposledy(int x, int y) {
         return (x == poslednaKontrolaX) && (y == poslednaKontrolaY);
-    }
+    }*/
 
-    private boolean rovnakaOsobaAkoNaposledy(Dochodca dochodca) {
+    /*private boolean rovnakaOsobaAkoNaposledy(Dochodca dochodca) {
         return dochodca == poslednaOsoba;
-    }
+    }*/
 
-    public boolean skontroluj(Dochodca dochodca) {
+    /*public boolean skontroluj(Dochodca dochodca) {
         String s = "Recepcny overil zaznam";
         // 30% sanca, ze ani recepcny nespozna
         // dochodcu podla poslaneho zaznamu z kamery
@@ -90,5 +133,5 @@ public class Recepcny extends Zamestnanec {
             starobinec.vypisDoGUI(s);
             return true;
         }
-    }
+    }*/
 }

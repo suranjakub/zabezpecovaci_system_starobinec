@@ -1,7 +1,9 @@
 package zariadenia;
 
+import kontroly.KontrolaMiesta;
 import ludia.Dochodca;
 import ludia.Recepcny;
+import main.NonDochodcaException;
 import main.Starobinec;
 
 import java.util.ArrayList;
@@ -20,7 +22,7 @@ public class Senzor extends Zariadenie {
         this.recepcny = recepcny;
     }
 
-    public void skontrolujDochodcov(ArrayList<Dochodca> dochodcovia) {
+    public void skontrolujDochodcov(ArrayList<Dochodca> dochodcovia) throws NonDochodcaException {
         ArrayList<Dochodca> zlyDochodcovia = new ArrayList<>();
 
         int pocUtecenych = 0;
@@ -28,8 +30,7 @@ public class Senzor extends Zariadenie {
         //ten potom musi overit ci sa jedna o falosny poplach
 
         if (dochodcovia == null) {
-            Starobinec.getInstance().vypisDoGUI("NIE SU VYTVORENY DOCHODCOVIA!");
-            System.out.println("NIE SU VYTVORENY DOCHODCOVIA!");
+            throw new NonDochodcaException("Nie je vytvoreny dochodca!");
         }
         else {
             for (Dochodca dochodca : dochodcovia) {
@@ -40,7 +41,7 @@ public class Senzor extends Zariadenie {
                     String s = "\nSenzor zachytil pohyb v zone ["+x+","+y+"]";
                     starobinec.vypisDoGUI(s);
                     System.out.println(s);
-                    recepcny.skontroluj(x, y, dochodca);
+                    recepcny.skontroluj(new KontrolaMiesta(recepcny), dochodca);
                 }
             }
             //uz som skontroloval vsetkych, mozem ich spracovat

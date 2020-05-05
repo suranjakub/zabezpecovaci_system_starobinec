@@ -3,27 +3,28 @@ package ludia;
 import gui.StarobinecGUI;
 import main.Starobinec;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Dochodca {
+public class Dochodca implements Serializable {
     private int x, y, id;
-    private static boolean naplanovanyUtek = false;
+    private transient static boolean naplanovanyUtek = false;
     private String meno;
     private static int pocDochodcov = 0;
     private static ArrayList<Dochodca> dochodcovia = new ArrayList<>();
     private Starobinec starobinec;
     private static StarobinecGUI GUIko;
     private static final int cas = 12;
-    private static Timer timer = null;
+    private transient static Timer timer = null;
     private int pocUteceni;
 
     public Dochodca(Starobinec starobinec) {
         this.meno = "Jozko";
         this.x = getRandomNumberInRange(1, 100);
         this.y = getRandomNumberInRange(1, 100);
-        this.id = 1 + pocDochodcov++;
+        this.id = 1 + dochodcovia.size();
         this.starobinec = starobinec;
         this.pocUteceni = 0;
         /*if(!naplanovanyUtek)
@@ -49,20 +50,26 @@ public class Dochodca {
         return dochodcovia;
     }
 
+    public void setArraylist(ArrayList<Dochodca> arrayList) {
+        dochodcovia = arrayList;
+    }
+
     public void naplanujUtek() {
         /*if(!naplanovanyUtek)
             naplanovanyUtek = true;*/
         /*int cislo = getRandomNumberInRange(0, pocDochodcov-1);
         dochodcovia.get(cislo).utec();*/
         //randomne sa vyberie, ktory dochodca utecie
+        System.out.println("Dochodcovia z timera" + dochodcovia.size());
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                if (!naplanovanyUtek) {
+                if (!naplanovanyUtek && dochodcovia.size() > 0) {
                     naplanovanyUtek = true;
                     //kazdych cas sekund random dochodca utecie
                     int cislo = getRandomNumberInRange(0, pocDochodcov-1);
+                    System.out.println(pocDochodcov);
                     System.out.println("Chysta sa utiect index "+cislo);
                     dochodcovia.get(cislo).utec();
                 }
@@ -92,7 +99,7 @@ public class Dochodca {
 
     public void vypniCasovac() {
         if (timer != null)
-            timer.cancel();;
+            timer.cancel();
     }
 
     public int getPocUteceni() {

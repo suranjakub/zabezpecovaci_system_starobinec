@@ -1,6 +1,8 @@
 package ludia;
 
-public abstract class Zamestnanec {
+import java.io.Serializable;
+
+public abstract class Zamestnanec implements Serializable {
     protected String meno;
     protected String typ;
 

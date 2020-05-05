@@ -1,7 +1,9 @@
 package zariadenia;
 
+import kontroly.KontrolaDochodcu;
 import ludia.Dochodca;
 import ludia.Recepcny;
+import main.NonDochodcaException;
 import main.Starobinec;
 
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ public class Kamera extends Zariadenie {
         this.recepcny = recepcny;
     }
 
-    public void skontrolujDochodcov(ArrayList<Dochodca> dochodcovia) {
+    public void skontrolujDochodcov(ArrayList<Dochodca> dochodcovia) throws NonDochodcaException {
         ArrayList<Dochodca> chronickyUtecenci = new ArrayList<>();
         ArrayList<Dochodca> zlyDochodcovia = new ArrayList<>();
 
@@ -30,8 +32,7 @@ public class Kamera extends Zariadenie {
 
         //nie su vytvoreny dochodcovia, nie je koho kontrolovat
         if (dochodcovia == null) {
-            Starobinec.getInstance().vypisDoGUI("NIE SU VYTVORENY DOCHODCOVIA!");
-            System.out.println("NIE SU VYTVORENY DOCHODCOVIA!");
+            throw new NonDochodcaException("Nie je vytvoreny dochodca!");
         }
         //ak dochodcovia existuju
         else {
@@ -54,7 +55,7 @@ public class Kamera extends Zariadenie {
                         String s = "\nKamera zaznamenala poplach v zone ["+dochodca.getX()+","+dochodca.getY()+"]";
                         System.out.println(s);
                         starobinec.vypisDoGUI(s);
-                        if(recepcny.skontroluj(dochodca)) {
+                        if( recepcny.skontroluj(new KontrolaDochodcu(recepcny), dochodca) ) {
                             databaza.add(dochodca);
                             zlyDochodcovia.add(dochodca);
                             pocUtecenych++;

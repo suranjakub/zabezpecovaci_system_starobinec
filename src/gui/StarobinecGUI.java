@@ -2,6 +2,7 @@ package gui;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -12,12 +13,22 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.Starobinec;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 public class StarobinecGUI extends Application {
     //private static StarobinecGUI instancia;
     private Starobinec starobinec;
     private Button predstavZamestnancov = new Button("Predstav zamestnancov");
     private Button vytvorDochodcov = new Button("Vytvor dochodcov");
     private Button spustiZabezpecenie = new Button("Spusti zabezpecovaci system");
+    private Button nacitajVstup = new Button("Nacitaj vstup");
     private TextField dochodci = new TextField();
     private Label dochodciOzn = new Label("Dochodci");
     private TextArea vypis = new TextArea();
@@ -45,9 +56,13 @@ public class StarobinecGUI extends Application {
         hlavneOkno.setTitle("Starobinec");
 
         FlowPane pane = new FlowPane();
+        pane.setHgap(10);
+        pane.setVgap(10);
+
         starobinec = new Starobinec();
         starobinec.setGUI(this);
 
+        pane.getChildren().add(nacitajVstup);
         pane.getChildren().add(predstavZamestnancov);
         pane.getChildren().add(dochodciOzn);
         pane.getChildren().add(dochodci);
@@ -57,6 +72,35 @@ public class StarobinecGUI extends Application {
         pane.getChildren().add(casovacText);
 
         skrol.setContent(pane);
+
+        nacitajVstup.setOnAction(e -> {
+            ObjectInputStream input = null;
+            try {
+                input = new ObjectInputStream(new BufferedInputStream(new FileInputStream(new File("input.txt"))));
+                starobinec = (Starobinec)input.readObject();
+                starobinec.setGUI(this);
+                starobinec.getDochodcovia().get(0).setArraylist(starobinec.getDochodcovia());
+                starobinec.getDochodcovia().get(0).naplanujUtek();
+                System.out.println(starobinec.getPocDochodcovia());
+                Alert hlaska = new Alert(Alert.AlertType.INFORMATION);
+                hlaska.setHeaderText("Uspesne nacitanie");
+                hlaska.setContentText("Uspesne nacitane zo suboru");
+                hlaska.showAndWait();
+            } catch (IOException | ClassNotFoundException ex) {
+                /*starobinec = new Starobinec();
+                starobinec.setGUI(this);*/
+                System.out.println("Spravilo sa??");
+            }
+            finally {
+                try {
+                    if (input != null) {
+                        input.close();
+                    }
+                } catch (IOException ex) {
+                    //ex.printStackTrace();
+                }
+            }
+        });
 
         predstavZamestnancov.setOnAction(e -> {
                 vypis.appendText(starobinec.predstavZamestnancov());
@@ -80,6 +124,20 @@ public class StarobinecGUI extends Application {
 
     @Override
     public void stop() throws Exception {
+        ObjectOutputStream input = null;
+        try {
+            input = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(new File("input.txt"))));
+            input.writeObject(starobinec);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            try {
+                input.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
         super.stop();
         starobinec.vypniSa();
         System.out.println("Aplikacia bola vypnuta so vsetkymi procesmi");
