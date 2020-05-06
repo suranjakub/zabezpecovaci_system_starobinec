@@ -34,6 +34,8 @@ public class Starobinec implements Serializable {
     }
 
     public int getPocDochodcovia() {
+        if(dochodcovia == null)
+            return 0;
         return dochodcovia.size();
     }
 

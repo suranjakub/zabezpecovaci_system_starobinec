@@ -77,19 +77,32 @@ public class StarobinecGUI extends Application {
             ObjectInputStream input = null;
             try {
                 input = new ObjectInputStream(new BufferedInputStream(new FileInputStream(new File("input.txt"))));
+                //load starobinec from file
                 starobinec = (Starobinec)input.readObject();
                 starobinec.setGUI(this);
-                starobinec.getDochodcovia().get(0).setArraylist(starobinec.getDochodcovia());
-                starobinec.getDochodcovia().get(0).naplanujUtek();
+
                 System.out.println(starobinec.getPocDochodcovia());
-                Alert hlaska = new Alert(Alert.AlertType.INFORMATION);
-                hlaska.setHeaderText("Uspesne nacitanie");
-                hlaska.setContentText("Uspesne nacitane zo suboru");
-                hlaska.showAndWait();
+
+                if (starobinec.getPocDochodcovia() > 0) {
+                    starobinec.getDochodcovia().get(0).setArraylist(starobinec.getDochodcovia());
+                    starobinec.getDochodcovia().get(0).naplanujUtek();
+                    System.out.println(starobinec.getPocDochodcovia());
+                    Alert hlaska = new Alert(Alert.AlertType.INFORMATION);
+                    hlaska.setHeaderText("Uspesne nacitanie");
+                    hlaska.setContentText("Uspesne nacitane zo suboru");
+                    hlaska.showAndWait();
+                }
+                else {
+                    Alert upozornenie = new Alert(Alert.AlertType.ERROR);
+                    upozornenie.setHeaderText("Chyba pri nacitavani!");
+                    upozornenie.setContentText("V nacitanom subore neboli dochodcovia, treba ich vytvorit teraz!");
+                    upozornenie.showAndWait();
+                }
             } catch (IOException | ClassNotFoundException ex) {
                 /*starobinec = new Starobinec();
                 starobinec.setGUI(this);*/
                 System.out.println("Spravilo sa??");
+                System.out.println("Input: "+input);
             }
             finally {
                 try {
