@@ -15,7 +15,7 @@ public class Dochodca implements Serializable {
     private static int pocDochodcov = 0;
     private static ArrayList<Dochodca> dochodcovia = new ArrayList<>();
     private Starobinec starobinec;
-    private static StarobinecGUI GUIko;
+    //private static StarobinecGUI GUIko;
     private static final int cas = 12;
     private transient static Timer timer = null;
     private int pocUteceni;
@@ -60,7 +60,7 @@ public class Dochodca implements Serializable {
         /*int cislo = getRandomNumberInRange(0, pocDochodcov-1);
         dochodcovia.get(cislo).utec();*/
         //randomne sa vyberie, ktory dochodca utecie
-        System.out.println("Dochodcovia z timera" + dochodcovia.size());
+        //System.out.println("Dochodcovia z timera" + dochodcovia.size());
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -69,7 +69,7 @@ public class Dochodca implements Serializable {
                     naplanovanyUtek = true;
                     //kazdych cas sekund random dochodca utecie
                     int cislo = getRandomNumberInRange(0, pocDochodcov-1);
-                    System.out.println(pocDochodcov);
+                    //System.out.println(pocDochodcov);
                     System.out.println("Chysta sa utiect index "+cislo);
                     dochodcovia.get(cislo).utec();
                 }

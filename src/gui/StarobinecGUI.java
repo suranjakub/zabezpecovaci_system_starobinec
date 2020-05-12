@@ -23,7 +23,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class StarobinecGUI extends Application {
-    //private static StarobinecGUI instancia;
     private Starobinec starobinec;
     private Button predstavZamestnancov = new Button("Predstav zamestnancov");
     private Button vytvorDochodcov = new Button("Vytvor dochodcov");
@@ -34,22 +33,6 @@ public class StarobinecGUI extends Application {
     private TextArea vypis = new TextArea();
     private ScrollPane skrol = new ScrollPane();
     private Text casovacText = new Text("Zabezpecovaci system nespusteny");
-
-    /*public StarobinecGUI() {
-        instancia = this;
-    }*/
-
-    /*public synchronized static StarobinecGUI getInstance() {
-        if(!instancia) {
-            Thread.start {
-                // Have to run in a thread because launch doesn't return
-                Application.launch(MyClass.class);
-            }
-            while(!instance)
-                Thread.sleep(100);
-        }
-        return instancia;
-    }*/
 
     @Override
     public void start(Stage hlavneOkno) throws Exception {
@@ -77,11 +60,9 @@ public class StarobinecGUI extends Application {
             ObjectInputStream input = null;
             try {
                 input = new ObjectInputStream(new BufferedInputStream(new FileInputStream(new File("input.txt"))));
-                //load starobinec from file
+                //load starobinec object from file
                 starobinec = (Starobinec)input.readObject();
                 starobinec.setGUI(this);
-
-                System.out.println(starobinec.getPocDochodcovia());
 
                 if (starobinec.getPocDochodcovia() > 0) {
                     starobinec.getDochodcovia().get(0).setArraylist(starobinec.getDochodcovia());
@@ -91,6 +72,11 @@ public class StarobinecGUI extends Application {
                     hlaska.setHeaderText("Uspesne nacitanie");
                     hlaska.setContentText("Uspesne nacitane zo suboru");
                     hlaska.showAndWait();
+
+                    //text do GUI vypisu
+                    vypis.appendText("Uspesne nacitane zo suboru\n");
+                    vypis.appendText(starobinec.predstavZamestnancov());
+                    vypis.appendText(starobinec.predstavDochodcov());
                 }
                 else {
                     Alert upozornenie = new Alert(Alert.AlertType.ERROR);
@@ -99,8 +85,8 @@ public class StarobinecGUI extends Application {
                     upozornenie.showAndWait();
                 }
             } catch (IOException | ClassNotFoundException ex) {
-                /*starobinec = new Starobinec();
-                starobinec.setGUI(this);*/
+                starobinec = new Starobinec();
+                starobinec.setGUI(this);
                 System.out.println("Spravilo sa??");
                 System.out.println("Input: "+input);
             }

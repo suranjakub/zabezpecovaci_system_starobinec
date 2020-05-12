@@ -11,13 +11,12 @@ import zariadenia.Kamera;
 import zariadenia.Senzor;
 import zariadenia.Zariadenie;
 
-import java.io.Serializable;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Starobinec implements Serializable {
-    //private static Starobinec starobinec = null;
     private ArrayList<Zamestnanec> zamestnanci = new ArrayList<>();
     private ArrayList<Dochodca> dochodcovia = null;
     private ArrayList<Dochodca> dbUtecencov = new ArrayList<>();
@@ -29,7 +28,6 @@ public class Starobinec implements Serializable {
     private Manazer manazer;
 
     public Starobinec() {
-        //starobinec = this;
         vytvorSa();
     }
 
@@ -43,16 +41,8 @@ public class Starobinec implements Serializable {
         return this.dochodcovia;
     }
 
-    /*public static Starobinec getInstance() {
-        return starobinec;
-    }*/
-
     public void setGUI(StarobinecGUI referencia) {
         this.GUIko = referencia;
-    }
-
-    public StarobinecGUI getGUI() {
-        return this.GUIko;
     }
 
     private void vytvorSa() {
