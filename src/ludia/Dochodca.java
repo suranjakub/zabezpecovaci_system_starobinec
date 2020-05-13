@@ -3,10 +3,12 @@ package ludia;
 import gui.StarobinecGUI;
 import main.Starobinec;
 
+import javax.print.Doc;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Dochodca implements Serializable {
     private int x, y, id;
@@ -16,8 +18,8 @@ public class Dochodca implements Serializable {
     private static ArrayList<Dochodca> dochodcovia = new ArrayList<>();
     private Starobinec starobinec;
     //private static StarobinecGUI GUIko;
-    private static final int cas = 12;
-    private transient static Timer timer = null;
+    private static final int cas = 10;
+    private transient static PlanovacUteku timer = null;
     private int pocUteceni;
 
     public Dochodca(Starobinec starobinec) {
@@ -29,6 +31,47 @@ public class Dochodca implements Serializable {
         this.pocUteceni = 0;
         /*if(!naplanovanyUtek)
             this.naplanujUtek();*/
+    }
+
+    static class PlanovacUteku implements Runnable {
+        private Thread planovac;
+        private final AtomicBoolean running = new AtomicBoolean(false);
+        private int interval;
+
+        public PlanovacUteku(int sleepInterval) {
+            interval = sleepInterval;
+        }
+
+        public void start() {
+            planovac = new Thread(this);
+            planovac.start();
+        }
+
+        public void stop() {
+            running.set(false);
+        }
+
+        @Override
+        public void run() {
+            running.set(true);
+            while (running.get()) {
+                try {
+                    Thread.sleep(interval*1000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    System.out.println("Vlakno bolo prerusene, nie je mozne dokoncit operaciu");
+                }
+                //kod planovaca
+                if (!naplanovanyUtek && dochodcovia.size() > 0) {
+                    naplanovanyUtek = true;
+                    //kazdych cas sekund random dochodca utecie
+                    int cislo = getRandomNumberInRange(0, dochodcovia.size()-1);
+                    //System.out.println(pocDochodcov);
+                    System.out.println("Chysta sa utiect index "+cislo);
+                    dochodcovia.get(cislo).utec();
+                }
+            }
+        }
     }
 
     private static int getRandomNumberInRange(int min, int max) {
@@ -55,26 +98,10 @@ public class Dochodca implements Serializable {
     }
 
     public void naplanujUtek() {
-        /*if(!naplanovanyUtek)
-            naplanovanyUtek = true;*/
-        /*int cislo = getRandomNumberInRange(0, pocDochodcov-1);
-        dochodcovia.get(cislo).utec();*/
-        //randomne sa vyberie, ktory dochodca utecie
-        //System.out.println("Dochodcovia z timera" + dochodcovia.size());
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                if (!naplanovanyUtek && dochodcovia.size() > 0) {
-                    naplanovanyUtek = true;
-                    //kazdych cas sekund random dochodca utecie
-                    int cislo = getRandomNumberInRange(0, pocDochodcov-1);
-                    //System.out.println(pocDochodcov);
-                    System.out.println("Chysta sa utiect index "+cislo);
-                    dochodcovia.get(cislo).utec();
-                }
-            }
-        }, cas*1000, cas*1000);
+        if (timer == null) {
+            timer = new PlanovacUteku(cas);
+            timer.start();
+        }
     }
 
     private void prejdiDoZakazanejZony() {
@@ -99,7 +126,7 @@ public class Dochodca implements Serializable {
 
     public void vypniCasovac() {
         if (timer != null)
-            timer.cancel();
+            timer.stop();
     }
 
     public int getPocUteceni() {
