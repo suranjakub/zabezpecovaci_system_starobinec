@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public class Recepcny extends Zamestnanec {
     private Starobinec starobinec;
     private Manazer manazer;
-    private int poslednaKontrolaX;
-    private int poslednaKontrolaY;
+    private transient int poslednaKontrolaX;
+    private transient int poslednaKontrolaY;
     private ArrayList<Dochodca> naVyhodenie = new ArrayList<>();
     private ArrayList<Dochodca> naPokarhanie = new ArrayList<>();
     private Dochodca poslednaOsoba;
