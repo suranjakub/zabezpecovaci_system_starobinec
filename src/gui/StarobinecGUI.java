@@ -87,8 +87,12 @@ public class StarobinecGUI extends Application {
             } catch (IOException | ClassNotFoundException ex) {
                 starobinec = new Starobinec();
                 starobinec.setGUI(this);
-                System.out.println("Spravilo sa??");
-                System.out.println("Input: "+input);
+                Alert upozornenie = new Alert(Alert.AlertType.ERROR);
+                upozornenie.setHeaderText("Chyba pri nacitavani!");
+                upozornenie.setContentText("Neexistuje vstupny subor, treba vytvorit dochodcov!");
+                upozornenie.showAndWait();
+                /*System.out.println("Spravilo sa??");
+                System.out.println("Input: "+input);*/
             }
             finally {
                 try {
