@@ -1,14 +1,12 @@
 package gui;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.Starobinec;
@@ -33,6 +31,13 @@ public class StarobinecGUI extends Application {
     private TextArea vypis = new TextArea();
     private ScrollPane skrol = new ScrollPane();
     private Text casovacText = new Text("Zabezpecovaci system nespusteny");
+    private Text textUdrzbaKamier = new Text("Udrzba kamier");
+    private Button udrzbaKamierTl = new Button("Zapnut udrzbu kamier");
+    private Text textUdrzbaSenzorov = new Text("Udrzba senzorov");
+    private Button udrzbaSenzorovTl = new Button("Zapnut udrzbu senzorov");
+    private HBox hbox = new HBox();
+    HBox hbox2 = new HBox();
+    Separator separator = new Separator(Orientation.HORIZONTAL);
 
     @Override
     public void start(Stage hlavneOkno) throws Exception {
@@ -53,8 +58,28 @@ public class StarobinecGUI extends Application {
         pane.getChildren().add(vytvorDochodcov);
         pane.getChildren().add(spustiZabezpecenie);
         pane.getChildren().add(casovacText);
+        pane.getChildren().add(separator);
+        pane.getChildren().add(hbox);
+        pane.getChildren().add(hbox2);
+
+        separator.setMinWidth(400);
+
+        //Udrzba kamier prvky
+        hbox.getChildren().add(textUdrzbaKamier);
+        hbox.getChildren().add(udrzbaKamierTl);
+
+        //Udrzba senzorov prvky
+        hbox2.getChildren().add(textUdrzbaSenzorov);
+        hbox2.getChildren().add(udrzbaSenzorovTl);
+
+        hbox.setSpacing(10);
+        hbox2.setSpacing(10);
+        /*hbox.setPadding(new Insets(0, 5, 0, 0));
+        hbox2.setPadding(new Insets(0, 5, 0, 0));*/
 
         skrol.setContent(pane);
+        skrol.fitToHeightProperty().set(true);
+        skrol.fitToWidthProperty().set(true);
 
         nacitajVstup.setOnAction(e -> {
             ObjectInputStream input = null;
@@ -120,6 +145,14 @@ public class StarobinecGUI extends Application {
                 starobinec.spustiZabezpecenie();
             }
         );
+
+        udrzbaKamierTl.setOnAction(e -> {
+            udrzbaKamierTl.setText(starobinec.udrzbaKamier(udrzbaKamierTl.getText()));
+        });
+
+        udrzbaSenzorovTl.setOnAction(e -> {
+            udrzbaSenzorovTl.setText(starobinec.udrzbaSenzorov(udrzbaSenzorovTl.getText()));
+        });
 
         hlavneOkno.setScene(new Scene(skrol, 500, 300));
         hlavneOkno.show();

@@ -26,6 +26,8 @@ public class Starobinec implements Serializable {
     private transient Timer timer = null;
     private Recepcny recepcny;
     private Manazer manazer;
+    private boolean kameryUdrzba = false;
+    private boolean senzoryUdrzba = false;
 
     public Starobinec() {
         vytvorSa();
@@ -120,12 +122,14 @@ public class Starobinec implements Serializable {
     }
 
     public void vykonajKontrolu() throws NonDochodcaException {
-        //new Kamera(starobinec, recepcny).skontrolujDochodcov(dochodcovia);
-        //new Senzor(starobinec, recepcny).skontrolujDochodcov(dochodcovia);
-        for (int j = 0; j < zariadenia.size(); ++j)
-            zariadenia.get(j).skontrolujDochodcov(dochodcovia);
-        //String s = "Kamery a senzory skontrolovane";
-        //GUIko.vypis(s);
+        for (int j = 0; j < zariadenia.size(); ++j) {
+            Zariadenie zariadenie = zariadenia.get(j);
+            if(zariadenie instanceof Kamera && !getKameryUdrzba())
+                zariadenie.skontrolujDochodcov(dochodcovia);
+            if(zariadenie instanceof Senzor && !getSenzoryUdrzba())
+                zariadenie.skontrolujDochodcov(dochodcovia);
+            //zariadenia.get(j).skontrolujDochodcov(dochodcovia);
+        }
     }
 
     public ArrayList<Dochodca> getDB() {
@@ -145,5 +149,51 @@ public class Starobinec implements Serializable {
 
     public void zmazDochodcu(Dochodca dochodca) {
         dochodcovia.remove(dochodca);
+    }
+
+    public void setKameryUdrzba(boolean hodnota) {
+        this.kameryUdrzba = hodnota;
+    }
+
+    public void setSenzoryUdrzba(boolean hodnota) {
+        this.senzoryUdrzba = hodnota;
+    }
+
+    public boolean getKameryUdrzba() {
+        return this.kameryUdrzba;
+    }
+
+    public boolean getSenzoryUdrzba() {
+        return this.senzoryUdrzba;
+    }
+
+    public String udrzbaKamier(String textTlacidla) {
+        String s1 = "Zapnut udrzbu kamier";
+        String s2 = "Vypnut udrzbu kamier";
+        if (textTlacidla.equals(s1)) {
+            setKameryUdrzba(true);
+            vypisDoGUI("UDRZBA KAMIER ZAPNUTA, kamery sa teraz nekontroluju");
+            return s2;
+        } else if (textTlacidla.equals(s2)) {
+            setKameryUdrzba(false);
+            vypisDoGUI("UDRZBA KAMIER VYPNUTA, kamery sa kontroluju");
+            return s1;
+        }
+        return "Chyba";
+    }
+
+    public String udrzbaSenzorov(String textTlacidla) {
+        String s1 = "Zapnut udrzbu senzorov";
+        String s2 = "Vypnut udrzbu senzorov";
+        if (textTlacidla.equals(s1)) {
+            setSenzoryUdrzba(true);
+            vypisDoGUI("UDRZBA SENZOROV ZAPNUTA, senzory sa teraz nekontroluju");
+            return s2;
+        } else if (textTlacidla.equals(s2)) {
+            setSenzoryUdrzba(false);
+            vypisDoGUI("UDRZBA SENZOROV VYPNUTA, senzory sa kontroluju");
+            return s1;
+        }
+        return "Chyba";
     }
 }
