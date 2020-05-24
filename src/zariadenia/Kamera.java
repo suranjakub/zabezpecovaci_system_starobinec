@@ -24,6 +24,13 @@ public class Kamera extends Zariadenie {
         this.recepcny = recepcny;
     }
 
+    /**
+     * Skontroluje dochodcov ci neutiekli za povolenu oblast.
+     * Najskor kontroluje databazu, ci uz utiekli niekedy pred tym.
+     * Ak najde utecenca, prida ho do list, ktory je nakoniec poslany recepcnemu
+     * @param dochodcovia list vsetkych dochodcov
+     * @throws NonDochodcaException ak nie su vytvoreny dochodcovia
+     */
     public void skontrolujDochodcov(ArrayList<Dochodca> dochodcovia) throws NonDochodcaException {
         ArrayList<Dochodca> chronickyUtecenci = new ArrayList<>();
         ArrayList<Dochodca> zlyDochodcovia = new ArrayList<>();
@@ -99,6 +106,12 @@ public class Kamera extends Zariadenie {
         }
     }
 
+    /**
+     * Kontroluje ci sa dochodca nachadza v zakazanej oblasti,
+     * cize v suradniciach vacsich ako 250
+     * @param dochodca objekt dochodcu
+     * @return informaciu, ci je v zakazanej oblasti alebo nie
+     */
     public boolean jeVzakazanejZone(Dochodca dochodca) {
         return dochodca.getX() > hranicaX || dochodca.getY() > hranicaY;
     }

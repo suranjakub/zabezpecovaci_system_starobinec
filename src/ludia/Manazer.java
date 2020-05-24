@@ -4,6 +4,11 @@ import main.Starobinec;
 
 import java.util.ArrayList;
 
+/**
+ * Manazer sa stara o vysporiadavanie sa s utecenymi dochodcami.
+ * U kazdeho uteceneho si zisti, ci uz pred tym utiekol alebo nie.
+ * Ak ano, tak ho vyhodi a ak nie, tak ho len upozorni.
+ */
 public class Manazer extends Zamestnanec{
     private Starobinec starobinec;
 

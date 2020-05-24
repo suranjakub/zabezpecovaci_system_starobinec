@@ -22,6 +22,13 @@ public class Senzor extends Zariadenie {
         this.recepcny = recepcny;
     }
 
+    /**
+     * Skontroluje dochodcov ci neutiekli za povolenu oblast.
+     * Ak senzor zaznamena nezelany pohyb v zakazanej oblasti,
+     * bude privolany recepcny na toto miesto.
+     * @param dochodcovia list vsetkych dochodcov
+     * @throws NonDochodcaException ak nie su vytvoreny dochodcovia
+     */
     public void skontrolujDochodcov(ArrayList<Dochodca> dochodcovia) throws NonDochodcaException {
         ArrayList<Dochodca> zlyDochodcovia = new ArrayList<>();
 
@@ -55,6 +62,12 @@ public class Senzor extends Zariadenie {
         }
     }
 
+    /**
+     * Kontroluje, ci sa dochodca nachadza v zakazanej zone,
+     * cize v suradniciach od 150 - 250
+     * @param dochodca objekt dochodcu
+     * @return informaciu, ci je v zakazanej oblasti alebo nie
+     */
     public boolean jeVzakazanejZone(Dochodca dochodca) {
         int x = dochodca.getX();
         int y = dochodca.getY();

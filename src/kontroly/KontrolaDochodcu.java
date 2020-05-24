@@ -11,6 +11,14 @@ public class KontrolaDochodcu implements TypKontroly {
         this.recepcny = recepcny;
     }
 
+    /**
+     * Metoda simuluje kontrolovanie miesta v realnom zivote
+     * pomocou nahodneho generovania stavov.
+     * Vyuziva generovanie sance na urovni 30%, ze recepcny nespozna dochodcu na zazname.
+     * Logicky je 70% sanca, ze dochodca bude rozpoznany na zazname z kamery.
+     * @param dochodca
+     * @return
+     */
     public boolean skontroluj(Dochodca dochodca) {
         String s = "Recepcny overil zaznam";
         // 30% sanca, ze ani recepcny nespozna

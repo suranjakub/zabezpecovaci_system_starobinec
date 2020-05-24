@@ -20,6 +20,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+/**
+ * Hlavna a jedina trieda, ktora spracuvava
+ * graficke rozhranie celej aplikacie
+ */
 public class StarobinecGUI extends Application {
     private Starobinec starobinec;
     private Button predstavZamestnancov = new Button("Predstav zamestnancov");

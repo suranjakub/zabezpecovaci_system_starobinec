@@ -16,6 +16,12 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+
+/**
+ * Hlavna - riadiaca trieda, ktora v sebe drzi udaje o celom beziacom programe a
+ * spracuvava vytvaranie zamestanancov, zariadeni a dochodcov, komunikuje s GUI.
+ * Spracuje udrzbu zariadeni - kamier a senzorov.
+ */
 public class Starobinec implements Serializable {
     private ArrayList<Zamestnanec> zamestnanci = new ArrayList<>();
     private ArrayList<Dochodca> dochodcovia = null;
@@ -47,6 +53,9 @@ public class Starobinec implements Serializable {
         this.GUIko = referencia;
     }
 
+    /**
+     * Vytvori zamestnancov a prida ich do listu.
+     */
     private void vytvorSa() {
         manazer = new Manazer(this);
         recepcny = new Recepcny(this, manazer);
@@ -82,6 +91,11 @@ public class Starobinec implements Serializable {
         return sprava;
     }
 
+    /**
+     * Spracuvava spustenie zabezpecenia starobinca,
+     * v pravidelnych intervaloch vykonvava kontrolu
+     * zabezpecovacich zariadeni.
+     */
     public void spustiZabezpecenie() {
         String s = "\nZabezpecovaci system aktivovany";
         vypisDoGUI(s);
@@ -121,6 +135,11 @@ public class Starobinec implements Serializable {
             dochodcovia.get(0).vypniCasovac();
     }
 
+
+    /**
+     * Vykona kontrolu nad vsetkymi vytvorenymi zariadeniami v liste.
+     * @throws NonDochodcaException ked neexistuje ziadny dochodca
+     */
     public void vykonajKontrolu() throws NonDochodcaException {
         for (int j = 0; j < zariadenia.size(); ++j) {
             Zariadenie zariadenie = zariadenia.get(j);
@@ -167,6 +186,13 @@ public class Starobinec implements Serializable {
         return this.senzoryUdrzba;
     }
 
+
+    /**
+     * Zapne udrzbu kamier po stlaceni tlacidla v GUI,
+     * tym padom vypne kontrolovanie.
+     * @param textTlacidla text tlacidla z GUI
+     * @return string s nazvom "Chyba", ak nie je mozne spustit udrzbu
+     */
     public String udrzbaKamier(String textTlacidla) {
         String s1 = "Zapnut udrzbu kamier";
         String s2 = "Vypnut udrzbu kamier";
@@ -182,6 +208,12 @@ public class Starobinec implements Serializable {
         return "Chyba";
     }
 
+    /**
+     * Zapne udrzbu senzorov po stlaceni tlacidla v GUI,
+     * tym padom vypne kontrolovanie.
+     * @param textTlacidla text tlacidla z GUI
+     * @return string s nazvom "Chyba", ak nie je mozne spustit udrzbu
+     */
     public String udrzbaSenzorov(String textTlacidla) {
         String s1 = "Zapnut udrzbu senzorov";
         String s2 = "Vypnut udrzbu senzorov";

@@ -6,6 +6,12 @@ import main.Starobinec;
 import javax.print.Doc;
 import java.util.ArrayList;
 
+/**
+ * Recepcny sa stara o kontrolovanie utecenych dochodcov,
+ * pricom k vykonaniu pozadovenej kontroly vyuziva triedy
+ * KontrolaMiesta a KontrolaDochodcu. Utecenych dochodcov
+ * nasledne posiela manazerovi, ktory sa s nimi vysporiada.
+ */
 public class Recepcny extends Zamestnanec {
     private Starobinec starobinec;
     private Manazer manazer;
