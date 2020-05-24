@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"gui"},{"l":"kontroly"},{"l":"ludia"},{"l":"main"},{"l":"zariadenia"}]
